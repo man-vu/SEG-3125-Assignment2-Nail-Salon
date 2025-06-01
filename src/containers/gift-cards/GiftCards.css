@@ -1,0 +1,91 @@
+.giftcards-section {
+  padding: 4rem 0;
+  background-color: #f9fafb;
+}
+
+.giftcards-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.giftcards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .giftcards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.giftcards-panel {
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+
+.follow-panel {
+  background-color: #fce4ec;
+}
+
+.promo-panel {
+  background-color: #f8bbd0;
+}
+
+.panel-content {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .panel-content {
+    text-align: left;
+  }
+}
+
+.follow-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.follow-handle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fd1c79;
+  margin-bottom: 1.5rem;
+}
+
+.follow-button {
+  background-color: #fd1c79;
+  color: white;
+}
+
+.follow-button:hover {
+  background-color: #e01968;
+}
+
+.promo-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.promo-text {
+  font-size: 1.125rem;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.promo-button {
+  background-color: white;
+  color: #fd1c79;
+}
+
+.promo-button:hover {
+  background-color: #f3f4f6;
+}
