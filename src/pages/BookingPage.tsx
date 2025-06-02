@@ -1,124 +1,160 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './BookingPage.css';
 import { Button } from '../components/ui/button';
-import { Calendar, dateFnsLocalizer, SlotInfo } from 'react-big-calendar';
-import { format } from 'date-fns/format';
-import { parse } from 'date-fns/parse';
-import { startOfWeek } from 'date-fns/startOfWeek';
-import { getDay } from 'date-fns/getDay';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { enUS } from 'date-fns/locale/en-US';
+import ServiceCategorySelector from '../components/ServiceCategorySelector/ServiceCategorySelector';
+import ServiceSelector from '../components/ServiceSelector/ServiceSelector';
+import DesignerSelector from '../components/DesignerSelector/DesignerSelector';
+import Scheduler from '../components/Scheduler/Scheduler';
+import { getDummyBookings, BookingEvent } from '../data/availableSlots';
+import StepProgressBar from '../components/StepProgressBar/StepProgressBar';
+import ReviewModal from '../components/ReviewModal/ReviewModal'; // <-- import
 
-const locales = {
-  'en-US': enUS,
-};
-
-
-const localizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  locales,
-});
+const steps = [
+  'Select a service category',
+  'Select a service',
+  'Select an artist',
+  'Select date & time',
+  'Review & Confirmation',
+];
 
 const BookingPage = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    category: '',
     service: '',
+    designer: '',
     start: null as Date | null,
     end: null as Date | null,
   });
+  const [events, setEvents] = useState<BookingEvent[]>([]);
+  useEffect(() => { setEvents(getDummyBookings()); }, []);
 
-  const [events, setEvents] = useState<any[]>([]);
+  const [step, setStep] = useState(0);
+  const [showReview, setShowReview] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const goToStep = (targetStep: number) => {
+    setStep(targetStep);
+    setFormData(prev => {
+      if (targetStep === 0) return { ...prev, category: '', service: '', designer: '', start: null, end: null };
+      if (targetStep === 1) return { ...prev, service: '', designer: '', start: null, end: null };
+      if (targetStep === 2) return { ...prev, designer: '', start: null, end: null };
+      if (targetStep === 3) return { ...prev, start: null, end: null };
+      return prev;
+    });
   };
 
-  const handleSelectSlot = (slotInfo: SlotInfo) => {
-    setFormData((prev) => ({
-      ...prev,
-      start: slotInfo.start,
-      end: slotInfo.end,
-    }));
-  };
+  const canProceed =
+    (step === 0 && !!formData.category) ||
+    (step === 1 && !!formData.service) ||
+    (step === 2 && !!formData.designer) ||
+    (step === 3 && !!formData.start && !!formData.end);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.start || !formData.end) {
-      alert('Please select a time slot.');
-      return;
+  const handleNext = () => { 
+    if (canProceed) {
+      if (step === 3) setShowReview(true);
+      else setStep((s) => s + 1);
     }
+  };
+  const handleBack = () => { if (step > 0) goToStep(step - 1); };
 
-    const newEvent = {
-      title: `${formData.name} (${formData.service})`,
-      start: formData.start,
-      end: formData.end,
-    };
+  const handleCategoryChange = (cat: string) => {
+    setFormData(prev => ({ ...prev, category: cat, service: '', designer: '', start: null, end: null }));
+    setStep(1);
+  };
+  const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement> | string) => {
+    const value = typeof e === 'string' ? e : e.target.value;
+    setFormData(prev => ({ ...prev, service: value, designer: '', start: null, end: null }));
+    setStep(2);
+  };
+  const handleDesignerChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFormData(prev => ({ ...prev, designer: e.target.value, start: null, end: null }));
+    setStep(3);
+  };
+  const handleSelectSlot = (slotInfo: any) => {
+    setFormData(prev => ({ ...prev, start: slotInfo.start, end: slotInfo.end }));
+    setStep(4);
+    setShowReview(true); // open modal immediately on slot pick
+  };
 
-    setEvents((prev) => [...prev, newEvent]);
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    setEvents(prev => [
+      ...prev,
+      {
+        title: `${formData.service} w/ ${formData.designer}`,
+        start: formData.start!,
+        end: formData.end!,
+      },
+    ]);
+    setShowReview(false);
+    alert(`Appointment booked on ${formData.start?.toLocaleString()}`);
+    setStep(0);
+    setFormData({ category: '', service: '', designer: '', start: null, end: null });
+  };
 
-    alert(
-      `Appointment booked for ${formData.name} on ${formData.start.toLocaleString()}`
-    );
-
-    // TODO: Send to backend or Firebase here
+  const handleReviewClose = () => {
+    setShowReview(false);
+    setStep(3); // Go back to scheduler
   };
 
   return (
     <section className="booking-page">
       <div className="booking-container">
-        <h2 className="booking-title">Book an Appointment</h2>
-        <form className="booking-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Full Name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
+        <div className="booking-header">
+          <h1>Book an Appointment</h1>
+          <StepProgressBar
+            steps={steps}
+            currentStep={step}
+            onStepClick={goToStep}
           />
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email Address"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-          <select name="service" value={formData.service} onChange={handleInputChange} required>
-            <option value="">Select a Service</option>
-            <option value="manicure">Manicure</option>
-            <option value="pedicure">Pedicure</option>
-            <option value="nail-art">Nail Art</option>
-            <option value="spa">Spa Package</option>
-          </select>
-
-          <div style={{ height: '500px', margin: '2rem 0' }}>
-            <Calendar
-              localizer={localizer}
-              events={events}
-              defaultView="week"
-              views={['week']}
-              step={30}
-              timeslots={1}
-              selectable
-              onSelectSlot={handleSelectSlot}
-              startAccessor="start"
-              endAccessor="end"
-              style={{ height: '100%' }}
-            />
+        </div>
+        <div className="booking-body">
+          <aside className="booking-sidebar">
+            {step === 0 && (
+              <ServiceCategorySelector value={formData.category} onChange={handleCategoryChange} />
+            )}
+            {step === 1 && (
+              <ServiceSelector value={formData.service} category={formData.category} onChange={handleServiceChange} />
+            )}
+            {step === 2 && (
+              <DesignerSelector value={formData.designer} onChange={handleDesignerChange} />
+            )}
+          </aside>
+          <div className="booking-main">
+            {/* Always show scheduler, but disable slot selection unless step===3 */}
+            <div className="calendar-wrapper">
+              <Scheduler
+                events={events}
+                onSelectSlot={handleSelectSlot}
+                selectable={step === 3}
+              />
+              {step < 3 && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'rgba(255,255,255,0.7)',
+                    zIndex: 5,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    pointerEvents: 'all',
+                  }}
+                >
+                  <span style={{ fontWeight: 500, color: '#333' }}>
+                    Select category, service, and artist to choose a time
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
-
-          <Button type="submit" className="booking-submit">
-            Confirm Booking
-          </Button>
-        </form>
+        </div>
       </div>
+      <ReviewModal
+        open={showReview}
+        onClose={handleReviewClose}
+        onConfirm={handleSubmit}
+        formData={formData}
+      />
     </section>
   );
 };
