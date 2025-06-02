@@ -12,7 +12,7 @@ import GiftCards from './containers/gift-cards/GiftCards';
 import Pricing from './containers/pricing/Pricing';
 import Promotions from './containers/promotions/Promotions';
 import LatestNews from './containers/latest-news/LatestNews';
-import BookingPage from './pages/BookingPage';
+import BookingPage from './pages/BookingPage/BookingPage';
 
 function App() {
   return (

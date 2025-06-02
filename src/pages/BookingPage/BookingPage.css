@@ -3,24 +3,41 @@
   max-width: 1100px;
   margin: 0 auto;
   padding: 2rem;
-  /* background-color: #12131e; */
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  background: #fff;
 }
 
+.booking-header {
+  width: 100%;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #fd1c79;
+  margin-bottom: 2rem;
+}
 
-/* Sidebar (left) */
+.booking-header h1 {
+  margin: 0 0 1rem 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fd1c79;
+  text-align: center;
+}
+
+.booking-body {
+  display: flex;
+  gap: 2rem;
+}
+
 .booking-sidebar {
   flex: 0 0 300px;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-
   padding: 1rem;
   border-radius: 8px;
+  min-width: 0;
 }
 
-/* Title inside sidebar */
 .booking-title {
   font-size: 1.8rem;
   color: #fd1c79;
@@ -28,15 +45,14 @@
   text-align: left;
 }
 
-/* Main content (right) */
 .booking-main {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  min-width: 0;
 }
 
-/* Button styling remains */
 .booking-submit {
   background-color: #fd1c79;
   color: white;
@@ -53,42 +69,6 @@
 
 .booking-submit:hover {
   background-color: #e01968;
-}
-
-.booking-header {
-  width: 100%;
-  padding-bottom: 1.5rem;
-  border-bottom: 2px solid #fd1c79;
-  margin-bottom: 2rem;
-}
-
-.booking-header h1 {
-  margin: 0;
-  font-size: 2rem;
-  font-weight: 600;
-  color: #fd1c79;
-  text-align: center;
-}
-
-/* Wrap sidebar + main in flex */
-.booking-body {
-  display: flex;
-  gap: 2rem;
-}
-
-.booking-header {
-  width: 100%;
-  padding-bottom: 1.5rem;
-  border-bottom: 2px solid #fd1c79;
-  margin-bottom: 2rem;
-}
-
-.booking-header h1 {
-  margin: 0 0 1rem 0;
-  font-size: 2rem;
-  font-weight: 600;
-  color: #fd1c79;
-  text-align: center;
 }
 
 /* Step Progress Bar */
@@ -128,13 +108,12 @@
   line-height: 1.2;
 }
 
-.calendar-wrapper{
+.calendar-wrapper {
   position: relative;
-
+  min-width: 0;
 }
 
-/* Put this in BookingPage.css or a global CSS file */
-
+/* Modal styles */
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -159,4 +138,78 @@
 @keyframes modal-fade-in {
   from { opacity: 0; transform: translateY(16px);}
   to { opacity: 1; transform: none; }
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .booking-container {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  .booking-body {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .booking-sidebar {
+    flex-basis: auto;
+    padding: 0.5rem;
+    border-radius: 6px;
+    min-width: 0;
+  }
+  .booking-main {
+    gap: 1rem;
+  }
+  .modal-content {
+    min-width: 0;
+    padding: 1rem 0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .booking-container {
+    padding: 0.5rem;
+    box-shadow: 0 0 8px rgba(0,0,0,0.08);
+    border-radius: 0;
+  }
+  .booking-header h1 {
+    font-size: 1.2rem;
+  }
+  .booking-sidebar {
+    gap: 0.7rem;
+    padding: 0.25rem;
+  }
+  .step-label {
+    font-size: 0.7rem;
+  }
+  .step-circle {
+    width: 24px;
+    height: 24px;
+    font-size: 1rem;
+  }
+  .modal-content {
+    min-width: 0;
+    width: 97vw;
+    padding: 0.5rem;
+    border-radius: 7px;
+  }
+}
+
+/* Hide horizontal overflow on mobile */
+body, html {
+  overflow-x: hidden;
+}
+
+.sidebar-mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.75);
+  z-index: 10;
+  border-radius: 8px;
+  pointer-events: all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  color: #888;
+  font-size: 1.05rem;
 }

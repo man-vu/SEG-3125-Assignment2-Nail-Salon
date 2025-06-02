@@ -1,5 +1,6 @@
 import { categoryServices } from '@/data/pricing';
-import './ServiceCategorySelector.css';
+import ClockIcon from "../icons/ClockIcon";
+// import './ServiceCategorySelector.css';
 
 interface Props {
   value: string;
@@ -35,8 +36,8 @@ const ServiceCategorySelector = ({ value, onChange }: Props) => {
 
               {pricing && (
                 <div className="service-selector-meta">
-                  <p>
-                    <strong>Duration:</strong>{' '}
+                  <p style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                    <ClockIcon size={16} color="#bbb" style={{ marginRight: 4, flexShrink: 0 }} />
                     {pricing.estimatedTimeMinutesRange[0]}–{pricing.estimatedTimeMinutesRange[1]} mins
                   </p>
                 </div>

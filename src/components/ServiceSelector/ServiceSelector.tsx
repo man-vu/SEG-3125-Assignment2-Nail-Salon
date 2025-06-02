@@ -1,6 +1,7 @@
 // src/components/ServiceSelector/ServiceSelector.tsx
 import { categoryServices } from '@/data/pricing';
 import './ServiceSelector.css';
+import ClockIcon from "../icons/ClockIcon";
 
 interface Props {
   value: string;
@@ -32,8 +33,8 @@ const ServiceSelector = ({ value, category, onChange }: Props) => {
               <h4 className="service-selector-title">{service.title} - ${service.cost}</h4>
               <p className="service-selector-description">{service.description}</p>
               <div className="service-selector-meta">
-                <p>
-                  <strong>Duration:</strong>{' '}
+                <p style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                  <ClockIcon size={16} color="#bbb" style={{ marginRight: 4, flexShrink: 0 }} />
                   {service.estimatedTimeMinutesRange[0]}–{service.estimatedTimeMinutesRange[1]} mins
                 </p>
               </div>

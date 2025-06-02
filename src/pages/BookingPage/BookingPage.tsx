@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import './BookingPage.css';
-import { Button } from '../components/ui/button';
-import ServiceCategorySelector from '../components/ServiceCategorySelector/ServiceCategorySelector';
-import ServiceSelector from '../components/ServiceSelector/ServiceSelector';
-import DesignerSelector from '../components/DesignerSelector/DesignerSelector';
-import Scheduler from '../components/Scheduler/Scheduler';
-import { getDummyBookings, BookingEvent } from '../data/availableSlots';
-import StepProgressBar from '../components/StepProgressBar/StepProgressBar';
-import ReviewModal from '../components/ReviewModal/ReviewModal'; // <-- import
+import ServiceCategorySelector from '../../components/ServiceCategorySelector/ServiceCategorySelector';
+import ServiceSelector from '../../components/ServiceSelector/ServiceSelector';
+import DesignerSelector from '../../components/DesignerSelector/DesignerSelector';
+import Scheduler from '../../components/Scheduler/Scheduler';
+import { getDummyBookings, BookingEvent } from '../../data/availableSlots';
+import StepProgressBar from '../../components/StepProgressBar/StepProgressBar';
+import ReviewModal from '../../components/ReviewModal/ReviewModal'; // <-- import
+import SidebarMask from '../../components/SidebarMask/SidebarMask';
 
 const steps = [
   'Select a service category',
@@ -108,17 +108,28 @@ const BookingPage = () => {
           />
         </div>
         <div className="booking-body">
-          <aside className="booking-sidebar">
-            {step === 0 && (
-              <ServiceCategorySelector value={formData.category} onChange={handleCategoryChange} />
-            )}
-            {step === 1 && (
-              <ServiceSelector value={formData.service} category={formData.category} onChange={handleServiceChange} />
-            )}
-            {step === 2 && (
-              <DesignerSelector value={formData.designer} onChange={handleDesignerChange} />
-            )}
-          </aside>
+        <aside className="booking-sidebar" style={{ position: "relative" }}>
+          {/* Step 0–2: show only one selector */}
+          {step === 0 && (
+            <ServiceCategorySelector value={formData.category} onChange={handleCategoryChange} />
+          )}
+          {step === 1 && (
+            <ServiceSelector value={formData.service} category={formData.category} onChange={handleServiceChange} />
+          )}
+          {step === 2 && (
+            <DesignerSelector value={formData.designer} onChange={handleDesignerChange} />
+          )}
+
+          {/* Step 3 and above: show all previous as read-only */}
+          {step >= 3 && (
+            <>
+              <ServiceCategorySelector value={formData.category} onChange={() => {}}  />
+              <ServiceSelector value={formData.service} category={formData.category} onChange={() => {}}  />
+              <DesignerSelector value={formData.designer} onChange={() => {}}  />
+              <SidebarMask text="Your selections are locked in. To change, go back." />
+            </>
+          )}
+        </aside>
           <div className="booking-main">
             {/* Always show scheduler, but disable slot selection unless step===3 */}
             <div className="calendar-wrapper">
@@ -127,23 +138,8 @@ const BookingPage = () => {
                 onSelectSlot={handleSelectSlot}
                 selectable={step === 3}
               />
-              {step < 3 && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'rgba(255,255,255,0.7)',
-                    zIndex: 5,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    pointerEvents: 'all',
-                  }}
-                >
-                  <span style={{ fontWeight: 500, color: '#333' }}>
-                    Select category, service, and artist to choose a time
-                  </span>
-                </div>
+              {step < 3 && (<SidebarMask text="Select category, service, and artist to choose a time" />
+
               )}
             </div>
           </div>
