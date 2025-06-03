@@ -9,6 +9,7 @@ import StepProgressBar from '@/components/StepProgressBar/StepProgressBar';
 import ReviewModal from '@/components/ReviewModal/ReviewModal';
 import SidebarMask from '@/components/SidebarMask/SidebarMask';
 import { getDummyBookings, BookingEvent } from '@/data/availableSlots';
+import { motion, AnimatePresence } from "framer-motion";
 
 const steps = [
   'Select a service category',
@@ -44,7 +45,7 @@ const BookingPage = () => {
         start: null,
         end: null,
       }));
-      
+
       // Set step appropriately
       if (navState.service) setStep(2); // skip to select designer
       else setStep(1); // go to select service in category
@@ -135,36 +136,78 @@ const BookingPage = () => {
         </div>
         <div className="booking-body">
           <aside className="booking-sidebar" style={{ position: "relative" }}>
-            {step === 0 && (
-              <ServiceCategorySelector value={formData.category} onChange={handleCategoryChange} />
-            )}
-            {step === 1 && (
-              <ServiceSelector value={formData.service} category={formData.category} onChange={handleServiceChange} />
-            )}
-            {step === 2 && (
-              <DesignerSelector value={formData.designer} onChange={handleDesignerChange} />
-            )}
-            {step >= 3 && (
-              <>
-                <ServiceCategorySelector value={formData.category} onChange={() => {}} />
-                <ServiceSelector value={formData.service} category={formData.category} onChange={() => {}} />
-                <DesignerSelector value={formData.designer} onChange={() => {}} />
-                <SidebarMask text="Your selections are locked in. To change, go back." />
-              </>
-            )}
-          </aside>
-          <div className="booking-main">
-            <div className="calendar-wrapper">
-              <h3 className="designer-heading">Select date & time</h3>
-              <Scheduler
-                events={events}
-                onSelectSlot={handleSelectSlot}
-                selectable={step === 3}
-              />
-              {step < 3 && (
-                <SidebarMask text="Select category, service, and artist to choose a time" />
+            <AnimatePresence mode="wait">
+              {step === 0 && (
+                <motion.div
+                  key="category"
+                  initial={{ opacity: 0, x: -32 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 32 }}
+                  transition={{ duration: 0.24 }}
+                >
+                  <ServiceCategorySelector value={formData.category} onChange={handleCategoryChange} />
+                </motion.div>
               )}
-            </div>
+              {step === 1 && (
+                <motion.div
+                  key="service"
+                  initial={{ opacity: 0, x: -32 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 32 }}
+                  transition={{ duration: 0.24 }}
+                >
+                  <ServiceSelector value={formData.service} category={formData.category} onChange={handleServiceChange} />
+                </motion.div>
+              )}
+              {step === 2 && (
+                <motion.div
+                  key="designer"
+                  initial={{ opacity: 0, x: -32 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 32 }}
+                  transition={{ duration: 0.24 }}
+                >
+                  <DesignerSelector value={formData.designer} onChange={handleDesignerChange} />
+                </motion.div>
+              )}
+              {step >= 3 && (
+                <motion.div
+                  key="locked"
+                  initial={{ opacity: 0, x: -32 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 32 }}
+                  transition={{ duration: 0.24 }}
+                >
+                  <ServiceCategorySelector value={formData.category} onChange={() => { }} />
+                  <ServiceSelector value={formData.service} category={formData.category} onChange={() => { }} />
+                  <DesignerSelector value={formData.designer} onChange={() => { }} />
+                  <SidebarMask text="Your selections are locked in. To change, go back." />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </aside>
+
+          <div className="booking-main">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.24 }}
+                className="calendar-wrapper"
+              >
+                <h3 className="designer-heading">Select date & time</h3>
+                <Scheduler
+                  events={events}
+                  onSelectSlot={handleSelectSlot}
+                  selectable={step === 3}
+                />
+                {step < 3 && (
+                  <SidebarMask text="Select category, service, and artist to choose a time" />
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>

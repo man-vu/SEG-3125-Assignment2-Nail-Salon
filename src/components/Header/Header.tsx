@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import "./Header.css";
 import { headerContent } from "@/data/content";
 import logo192 from '@/assets/icons/logo192.png';
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,7 +23,12 @@ const Header = () => {
   const toggleDropdown = (d: string) => setActiveDropdown(activeDropdown === d ? null : d);
 
   return (
-    <header className="header">
+    <motion.header
+      className="header"
+      initial={{ y: -40, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="header-container">
         <Link to="/" className="logo">
           <img src={logo192} alt="Logo" className="logo-img" />
@@ -36,11 +42,21 @@ const Header = () => {
                   <button className="nav-link" onClick={() => toggleDropdown(item.title)}>
                     {item.title}<ChevronDown className="icon-chevron" />
                   </button>
-                  <div className={cn("dropdown", activeDropdown === item.title ? "show" : "hide")}>
-                    {item.items?.map((drop, j) =>
-                      <Link key={j} to={drop.url} className="dropdown-item">{drop.name}</Link>
+                  <AnimatePresence>
+                    {activeDropdown === item.title && (
+                      <motion.div
+                        className="dropdown"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.22 }}
+                      >
+                        {item.items?.map((drop, j) =>
+                          <Link key={j} to={drop.url} className="dropdown-item">{drop.name}</Link>
+                        )}
+                      </motion.div>
                     )}
-                  </div>
+                  </AnimatePresence>
                 </>
               ) : (
                 <Link to={item.url || "#"} className="nav-link">{item.title}</Link>
@@ -55,35 +71,51 @@ const Header = () => {
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
-      {isMenuOpen && (
-        <div className="mobile-nav">
-          {headerContent.menuItems.map((item, i) => (
-            <div key={i}>
-              {item.dropdown ? (
-                <>
-                  <button className="mobile-nav-link" onClick={() => toggleDropdown(item.title)}>
-                    {item.title}
-                    <ChevronDown className={cn("icon-chevron", activeDropdown === item.title && "rotate")} />
-                  </button>
-                  {activeDropdown === item.title &&
-                    <div className="mobile-dropdown">
-                      {item.items?.map((drop, j) =>
-                        <Link key={j} to={drop.url} className="mobile-dropdown-item" onClick={() => setIsMenuOpen(false)}>{drop.name}</Link>
-                      )}
-                    </div>
-                  }
-                </>
-              ) : (
-                <Link to={item.url || "#"} className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>{item.title}</Link>
-              )}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="mobile-nav"
+            initial={{ y: -24, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -24, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {headerContent.menuItems.map((item, i) => (
+              <div key={i}>
+                {item.dropdown ? (
+                  <>
+                    <button className="mobile-nav-link" onClick={() => toggleDropdown(item.title)}>
+                      {item.title}
+                      <ChevronDown className={cn("icon-chevron", activeDropdown === item.title && "rotate")} />
+                    </button>
+                    <AnimatePresence>
+                      {activeDropdown === item.title &&
+                        <motion.div
+                          className="mobile-dropdown"
+                          initial={{ opacity: 0, y: -12 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -12 }}
+                          transition={{ duration: 0.18 }}
+                        >
+                          {item.items?.map((drop, j) =>
+                            <Link key={j} to={drop.url} className="mobile-dropdown-item" onClick={() => setIsMenuOpen(false)}>{drop.name}</Link>
+                          )}
+                        </motion.div>
+                      }
+                    </AnimatePresence>
+                  </>
+                ) : (
+                  <Link to={item.url || "#"} className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>{item.title}</Link>
+                )}
+              </div>
+            ))}
+            <div className="mobile-book-button">
+              <Link to="/booking"><Button className="book-button">{headerContent.bookNowButton}</Button></Link>
             </div>
-          ))}
-          <div className="mobile-book-button">
-            <Link to="/booking"><Button className="book-button">{headerContent.bookNowButton}</Button></Link>
-          </div>
-        </div>
-      )}
-    </header>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 

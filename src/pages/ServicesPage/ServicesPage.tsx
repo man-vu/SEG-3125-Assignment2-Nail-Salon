@@ -4,6 +4,7 @@ import OurServiceCard from '@/components/OurServiceCard/OurServiceCard';
 import { Button } from '@/components/ui/button';
 import { categoryServices } from '@/data/pricing';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from "framer-motion";
 
 function ServicesTabs({ categories, value, onChange }) {
   const listRef = useRef(null);
@@ -77,32 +78,51 @@ const ServicesPage = () => {
       {/* Services Tabs */}
       <section className="services-tabs-container">
         <ServicesTabs categories={categories} value={tab} onChange={setTab} />
-        {(() => {
-          const activeCategory = categoryServices.find(
-            (cat) => cat.title.toLowerCase() === tab
-          );
-          if (!activeCategory) return null;
-          return (
-            <div className="services-tabs-content">
-              <div className="services-cards-grid">
-                {activeCategory.services?.map((svc) => (
-                  <OurServiceCard
-                    key={svc.title}
-                    image={svc.image}
-                    title={svc.title}
-                    category={activeCategory.title}
-                    description={svc.description}
-                    cost={svc.cost}
-                    currency={svc.currency}
-                    estimatedTimeMinutesRange={svc.estimatedTimeMinutesRange}
-                    shortDescription={svc.shortDescription}
-                  />
-                ))}
-              </div>
-            </div>
-          );
-        })()}
+        <AnimatePresence mode="wait">
+          {(() => {
+            const activeCategory = categoryServices.find(
+              (cat) => cat.title.toLowerCase() === tab
+            );
+            if (!activeCategory) return null;
+            return (
+              <motion.div
+                key={activeCategory.title} // must use key for AnimatePresence
+                className="services-tabs-content"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.32, ease: [0.25, 0.46, 0.45, 0.94] }}
+              >
+                <div className="services-cards-grid">
+                  {activeCategory.services?.map((svc, i) => (
+                    <motion.div
+                      key={svc.title}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.32,
+                        delay: i * 0.07
+                      }}
+                    >
+                      <OurServiceCard
+                        image={svc.image}
+                        title={svc.title}
+                        category={activeCategory.title}
+                        description={svc.description}
+                        cost={svc.cost}
+                        currency={svc.currency}
+                        estimatedTimeMinutesRange={svc.estimatedTimeMinutesRange}
+                        shortDescription={svc.shortDescription}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })()}
+        </AnimatePresence>
       </section>
+
 
 
       {/* Booking Information */}
