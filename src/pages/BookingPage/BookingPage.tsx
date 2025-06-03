@@ -10,6 +10,7 @@ import ReviewModal from '@/components/ReviewModal/ReviewModal';
 import SidebarMask from '@/components/SidebarMask/SidebarMask';
 import { getDummyBookings, BookingEvent } from '@/data/availableSlots';
 import { motion, AnimatePresence } from "framer-motion";
+import { useIsMobile } from '@/lib/useIsMobile'; // import the custom hook
 
 const steps = [
   'Select a service category',
@@ -33,8 +34,8 @@ const BookingPage = () => {
   const [events, setEvents] = useState<BookingEvent[]>([]);
   const [step, setStep] = useState(0);
   const [showReview, setShowReview] = useState(false);
+  const isMobile = useIsMobile(); // <-- use the custom hook
 
-  // On mount, prefill category/service if passed from ServicesPage
   useEffect(() => {
     if (navState.category) {
       setFormData(prev => ({
@@ -45,12 +46,9 @@ const BookingPage = () => {
         start: null,
         end: null,
       }));
-
-      // Set step appropriately
-      if (navState.service) setStep(2); // skip to select designer
-      else setStep(1); // go to select service in category
+      if (navState.service) setStep(2);
+      else setStep(1);
     }
-    // If no state, just start at step 0 (default)
     // eslint-disable-next-line
   }, [navState.category, navState.service]);
 
@@ -123,6 +121,11 @@ const BookingPage = () => {
     setStep(3);
   };
 
+  // ----------- Core logic for hiding selectors on mobile at date/time step -----------
+  // Show selectors if not mobile, or if not on step 3+
+  const shouldShowSelectors =
+    !isMobile || (step < 3);
+
   return (
     <section className="booking-page">
       <div className="booking-container">
@@ -137,52 +140,56 @@ const BookingPage = () => {
         <div className="booking-body">
           <aside className="booking-sidebar" style={{ position: "relative" }}>
             <AnimatePresence mode="wait">
-              {step === 0 && (
-                <motion.div
-                  key="category"
-                  initial={{ opacity: 0, x: -32 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 32 }}
-                  transition={{ duration: 0.24 }}
-                >
-                  <ServiceCategorySelector value={formData.category} onChange={handleCategoryChange} />
-                </motion.div>
-              )}
-              {step === 1 && (
-                <motion.div
-                  key="service"
-                  initial={{ opacity: 0, x: -32 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 32 }}
-                  transition={{ duration: 0.24 }}
-                >
-                  <ServiceSelector value={formData.service} category={formData.category} onChange={handleServiceChange} />
-                </motion.div>
-              )}
-              {step === 2 && (
-                <motion.div
-                  key="designer"
-                  initial={{ opacity: 0, x: -32 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 32 }}
-                  transition={{ duration: 0.24 }}
-                >
-                  <DesignerSelector value={formData.designer} onChange={handleDesignerChange} />
-                </motion.div>
-              )}
-              {step >= 3 && (
-                <motion.div
-                  key="locked"
-                  initial={{ opacity: 0, x: -32 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 32 }}
-                  transition={{ duration: 0.24 }}
-                >
-                  <ServiceCategorySelector value={formData.category} onChange={() => { }} />
-                  <ServiceSelector value={formData.service} category={formData.category} onChange={() => { }} />
-                  <DesignerSelector value={formData.designer} onChange={() => { }} />
-                  <SidebarMask text="Your selections are locked in. To change, go back." />
-                </motion.div>
+              {shouldShowSelectors && (
+                <>
+                  {step === 0 && (
+                    <motion.div
+                      key="category"
+                      initial={{ opacity: 0, x: -32 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 32 }}
+                      transition={{ duration: 0.24 }}
+                    >
+                      <ServiceCategorySelector value={formData.category} onChange={handleCategoryChange} />
+                    </motion.div>
+                  )}
+                  {step === 1 && (
+                    <motion.div
+                      key="service"
+                      initial={{ opacity: 0, x: -32 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 32 }}
+                      transition={{ duration: 0.24 }}
+                    >
+                      <ServiceSelector value={formData.service} category={formData.category} onChange={handleServiceChange} />
+                    </motion.div>
+                  )}
+                  {step === 2 && (
+                    <motion.div
+                      key="designer"
+                      initial={{ opacity: 0, x: -32 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 32 }}
+                      transition={{ duration: 0.24 }}
+                    >
+                      <DesignerSelector value={formData.designer} onChange={handleDesignerChange} />
+                    </motion.div>
+                  )}
+                  {step >= 3 && (
+                    <motion.div
+                      key="locked"
+                      initial={{ opacity: 0, x: -32 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 32 }}
+                      transition={{ duration: 0.24 }}
+                    >
+                      <ServiceCategorySelector value={formData.category} onChange={() => { }} />
+                      <ServiceSelector value={formData.service} category={formData.category} onChange={() => { }} />
+                      <DesignerSelector value={formData.designer} onChange={() => { }} />
+                      <SidebarMask text="Your selections are locked in. To change, go back." />
+                    </motion.div>
+                  )}
+                </>
               )}
             </AnimatePresence>
           </aside>
