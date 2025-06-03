@@ -1,7 +1,6 @@
-// src/data/designers.ts
-
 export interface Designer {
   name: string;
+  title: string;
   avatar: string;
   bio: string;
 }
@@ -9,32 +8,62 @@ export interface Designer {
 export const designers: Designer[] = [
   {
     name: 'Anna',
-    avatar: 'https://example.com/images/anna.jpg',
-    bio: 'Specializes in French tips and natural nail care.',
+    title: "Nail Technician",
+    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+    bio: 'French tip & natural nail expert (7 yrs).',
   },
   {
     name: 'Bella',
-    avatar: 'https://example.com/images/bella.jpg',
-    bio: 'Creative nail artist with bold design experience.',
+    title: "Nail Artist",
+    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+    bio: 'Bold, creative nail art (5 yrs).',
   },
   {
     name: 'Chloe',
-    avatar: 'https://example.com/images/chloe.jpg',
-    bio: 'Loves minimalist designs and hand-painted art.',
+    title: "Senior Nail Designer",
+    avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+    bio: 'Minimalist designs & hand-painted art (10 yrs).',
   },
   {
     name: 'Diana',
-    avatar: 'https://example.com/images/diana.jpg',
-    bio: 'Master technician for acrylic overlays and extensions.',
+    title: "Acrylic Specialist",
+    avatar: 'https://randomuser.me/api/portraits/women/32.jpg',
+    bio: 'Acrylic overlays & extensions (8 yrs).',
   },
   {
     name: 'Elaine',
-    avatar: 'https://example.com/images/elaine.jpg',
-    bio: 'Spa specialist with a passion for relaxation treatments.',
+    title: "Spa & Waxing Expert",
+    avatar: 'https://randomuser.me/api/portraits/women/21.jpg',
+    bio: 'Relaxation & waxing specialist (6 yrs).',
   },
   {
     name: 'Fiona',
-    avatar: 'https://example.com/images/fiona.jpg',
-    bio: 'Kids-friendly and patient with detailed care.',
+    title: "Children’s Nail Designer",
+    avatar: 'https://randomuser.me/api/portraits/women/51.jpg',
+    bio: 'Fun, gentle kids’ nail care (4 yrs).',
+  },
+  {
+    name: 'Grace',
+    title: "Salon Manager",
+    avatar: 'https://randomuser.me/api/portraits/women/70.jpg',
+    bio: 'Experienced leader & hygiene advocate (12 yrs).',
+  },
+  {
+    name: 'Lucas',
+    title: "Front Desk Coordinator",
+    avatar: 'https://randomuser.me/api/portraits/men/12.jpg',
+    bio: 'Warm, welcoming client care (3 yrs).',
+  },
+  {
+    name: 'Kim',
+    title: "Pedicure Specialist",
+    avatar: 'https://randomuser.me/api/portraits/women/50.jpg',
+    bio: 'Deluxe pedicure & foot care (9 yrs).',
+  },
+  {
+    name: 'Ivan',
+    title: "Nail Technician & Trainer",
+    avatar: 'https://randomuser.me/api/portraits/men/22.jpg',
+    bio: 'Mentor & advanced techniques (11 yrs).',
   },
 ];

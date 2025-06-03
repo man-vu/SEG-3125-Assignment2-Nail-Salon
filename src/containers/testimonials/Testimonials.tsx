@@ -10,7 +10,7 @@ import { testimonialsContent } from '@/data/content';
 
 const TestimonialsSwiper = () => {
   return (
-    <section className="testimonials-section">
+    <section id='#testimonials' className="testimonials-section">
       <div className="testimonials-container">
         <div className="section-header">
           <h2>{testimonialsContent.heading}</h2>
