@@ -100,6 +100,16 @@
   display: none;
 }
 
+.auth-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.icon-gap {
+  margin-right: 0.25rem;
+}
+
 .book-button {
   background-color: var(--color-primary);
   color: white;
