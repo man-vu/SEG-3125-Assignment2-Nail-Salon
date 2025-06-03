@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, LogIn, UserPlus, LogOut } from "lucide-react";
 import { Button } from "../ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
@@ -66,13 +66,24 @@ const Header = () => {
             </div>
           ))}
         </nav>
-        {user ? (
-          <button onClick={logout} className="nav-link">Logout</button>
-        ) : (
-          <Link to="/login" className="nav-link">Login</Link>
-        )}
-        <div className="book-button-desktop">
-          <Link to="/booking"><Button className="book-button">{headerContent.bookNowButton}</Button></Link>
+        <div className="auth-links">
+          {user ? (
+            <button onClick={logout} className="nav-link">
+              <LogOut size={18} className="icon-gap" /> Logout
+            </button>
+          ) : (
+            <>
+              <Link to="/login" className="nav-link">
+                <LogIn size={18} className="icon-gap" /> Login
+              </Link>
+              <Link to="/register" className="nav-link">
+                <UserPlus size={18} className="icon-gap" /> Register
+              </Link>
+            </>
+          )}
+          <div className="book-button-desktop">
+            <Link to="/booking"><Button className="book-button">{headerContent.bookNowButton}</Button></Link>
+          </div>
         </div>
         <button className="mobile-menu-button" onClick={() => setIsMenuOpen(v => !v)}>
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -121,9 +132,14 @@ const Header = () => {
                 Logout
               </button>
             ) : (
-              <Link to="/login" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>
-                Login
-              </Link>
+              <>
+                <Link to="/login" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>
+                  Login
+                </Link>
+                <Link to="/register" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>
+                  Register
+                </Link>
+              </>
             )}
             <div className="mobile-book-button">
               <Link to="/booking"><Button className="book-button">{headerContent.bookNowButton}</Button></Link>

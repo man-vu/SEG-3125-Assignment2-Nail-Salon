@@ -7,6 +7,7 @@ interface User {
 interface AuthContextProps {
   user: User | null;
   login: (username: string, password: string) => boolean;
+  register: (username: string, password: string) => void;
   logout: () => void;
 }
 
@@ -32,13 +33,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return false;
   };
 
+  const register = (username: string, password: string) => {
+    const u = { username };
+    setUser(u);
+    localStorage.setItem('auth-user', JSON.stringify(u));
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem('auth-user');
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
