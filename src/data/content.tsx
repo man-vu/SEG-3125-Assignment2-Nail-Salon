@@ -1,4 +1,8 @@
 import { url } from "inspector";
+import img1 from '@/assets/nail-salon/1.jpg';
+import img2 from '@/assets/nail-salon/2.jpg';
+import img3 from '@/assets/nail-salon/3.jpg';
+import img4 from '@/assets/nail-salon/4.jpg';
 
 // src/headerContent.tsx
 export const headerContent = {
@@ -135,28 +139,28 @@ export const galleryContent = {
 // src/data/heroSlides.tsx
 export const heroSlides = [
   {
-    image: '/src/assets/nail-salon/1.jpg',
+    image: img1,
     title: 'WELCOME TO',
     subtitle: 'DREAMY NAIL & BEAUTY STUDIO',
     buttonText: 'Online Booking',
     buttonLink: '/booking',
   },
   {
-    image: '/src/assets/nail-salon/2.jpg',
+    image: img2,
     title: 'PROFESSIONAL',
     subtitle: 'NAIL CARE SERVICES',
     buttonText: 'View Services',
     buttonLink: '/services',
   },
   {
-    image: '/src/assets/nail-salon/3.jpg',
+    image: img3,
     title: 'BEAUTIFUL',
     subtitle: 'NAIL DESIGNS',
     buttonText: 'View Gallery',
     buttonLink: '/gallery',
   },
   {
-    image: '/src/assets/nail-salon/4.jpg',
+    image: img4,
     title: 'LUXURY',
     subtitle: 'SPA EXPERIENCE',
     buttonText: 'Explore More',
