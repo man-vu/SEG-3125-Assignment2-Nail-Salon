@@ -13,16 +13,24 @@ const DesignerSelector = ({ value, onChange }: Props) => {
 
   return (
     <div className="designer-selector">
-      <h3 className="designer-heading">Choose Your Artist</h3>
+      <h3 className="designer-heading">Choose your artist</h3>
       <div className="designer-grid">
         {designers.map((designer) => (
           <div
             key={designer.name}
-            className={`designer-card ${value === designer.name ? 'selected' : ''}`}
+            className={`designer-card${value === designer.name ? ' selected' : ''}`}
             onClick={() => handleSelect(designer.name)}
           >
-            <h4 className="designer-name">{designer.name}</h4>
-            <p className="designer-bio">{designer.bio}</p>
+            <img
+              src={designer.avatar}
+              alt={designer.name}
+              className="designer-avatar"
+            />
+            <div>
+              <h4 className="designer-name">{designer.name}</h4>
+              <div className="designer-title">{designer.title}</div>
+              <p className="designer-bio">{designer.bio}</p>
+            </div>
           </div>
         ))}
       </div>

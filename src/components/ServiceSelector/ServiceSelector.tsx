@@ -18,7 +18,7 @@ const ServiceSelector = ({ value, category, onChange }: Props) => {
 
   return (
     <div className="service-selector">
-      <h3 className="service-selector-heading">Select a Service</h3>
+      <h3 className="service-selector-heading">Select a service</h3>
 
       {!selectedCategory || !selectedCategory.services || selectedCategory.services.length === 0 ? (
         <p className="service-selector-subtext">Please select a service category with available services.</p>

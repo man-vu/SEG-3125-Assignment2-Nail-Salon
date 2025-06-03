@@ -8,7 +8,7 @@ const TeamPage = () => (
     <main className="team-main">
       {/* Page Header */}
       <header className="gallery-header">
-        <h2>Our Designers</h2>
+        <h2>Our Team</h2>
         <div className="divider"></div>
         <p>
           Our talented designers bring creativity, skill, and a personal touch to every appointment. From timeless classics to bold new trends, they're here to make your nail dreams a reality—all in a welcoming, relaxing environment.

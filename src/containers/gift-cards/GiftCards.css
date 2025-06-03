@@ -62,6 +62,7 @@
 .follow-button {
   background-color: #fd1c79;
   color: white;
+  cursor: pointer;
 }
 
 .follow-button:hover {
@@ -84,6 +85,7 @@
 .promo-button {
   background-color: white;
   color: #fd1c79;
+  cursor: pointer;
 }
 
 .promo-button:hover {

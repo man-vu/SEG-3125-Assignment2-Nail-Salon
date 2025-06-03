@@ -1,4 +1,4 @@
-// src/containers/GiftCards.tsx
+import { Link } from 'react-router-dom';
 import { Button } from '../../components/ui/button';
 import './GiftCards.css';
 import { giftCardsContent } from '@/data/content';
@@ -8,9 +8,11 @@ const GiftCards = () => {
     followTitle,
     followHandle,
     followButtonText,
+    followLink, // Add this in your content if not already
     promoTitle,
     promoText,
     promoButtonText,
+    promoLink, // Add this in your content if not already
   } = giftCardsContent;
 
   return (
@@ -21,7 +23,10 @@ const GiftCards = () => {
             <div className="panel-content">
               <h3 className="follow-title">{followTitle}</h3>
               <h2 className="follow-handle">{followHandle}</h2>
-              <Button className="follow-button">{followButtonText}</Button>
+              {/* External link, use <a> */}
+              <a href={followLink} target="_blank" rel="noopener noreferrer">
+                <Button className="follow-button">{followButtonText}</Button>
+              </a>
             </div>
           </div>
 
@@ -29,7 +34,10 @@ const GiftCards = () => {
             <div className="panel-content">
               <h2 className="promo-title">{promoTitle}</h2>
               <p className="promo-text">{promoText}</p>
-              <Button className="promo-button">{promoButtonText}</Button>
+              {/* Internal link, use <Link> */}
+              <Link to={promoLink}>
+                <Button className="promo-button">{promoButtonText}</Button>
+              </Link>
             </div>
           </div>
         </div>

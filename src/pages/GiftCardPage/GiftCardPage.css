@@ -1,0 +1,96 @@
+.giftcard-demo-bg {
+  min-height: 100vh;
+  background: #fff1e6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.giftcard-demo-container {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(32, 48, 60, 0.13);
+  max-width: 420px;
+  width: 100%;
+  padding: 2.5rem 2rem 2rem 2rem;
+  text-align: center;
+}
+
+.giftcard-title {
+  color: #fd1c79;
+  font-size: 2.1rem;
+  margin-bottom: 0.7rem;
+  font-weight: 700;
+}
+
+.giftcard-desc {
+  font-size: 1rem;
+  color: #20303cbb;
+  margin-bottom: 1.6rem;
+}
+
+.giftcard-label {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #20303c;
+  margin: 1.1rem 0 0.4rem 0;
+  text-align: left;
+}
+
+.giftcard-amounts {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.giftcard-amount-btn {
+  border: 1.5px solid #fd1c79;
+  background: #fff;
+  color: #fd1c79;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.giftcard-amount-btn.selected,
+.giftcard-amount-btn:hover {
+  background: #fd1c79;
+  color: #fff;
+}
+
+.giftcard-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid #f3d1e4;
+  border-radius: 7px;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  margin-top: 0.1rem;
+}
+
+.giftcard-purchase-btn {
+  width: 100%;
+  background: #fd1c79;
+  color: #fff;
+  font-size: 1.09rem;
+  border-radius: 7px;
+  margin-top: 1.2rem;
+  padding: 1rem 0;
+}
+.giftcard-purchase-btn:disabled {
+  background: #ffe1f0;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.giftcard-success {
+  margin-top: 1rem;
+  color: #22b573;
+  font-size: 1rem;
+  font-weight: 600;
+}

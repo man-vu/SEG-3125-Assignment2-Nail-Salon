@@ -61,7 +61,7 @@
 .our-card-btn {
   margin-top: auto;
   width: 100%;
-  background: #111 !important;
+  background: #fd1c79 !important;
   color: #fff !important;
   border-radius: 5px !important;
   font-weight: 500 !important;
@@ -69,8 +69,9 @@
   border: none !important;
   padding: 0.9rem 0 !important;
   transition: background 0.2s;
+  cursor: pointer;
 }
 .our-card-btn:hover {
-  background: #232323 !important;
+  background: #e01968 !important;
   color: #fff !important;
 }

@@ -53,6 +53,7 @@
   background-color: #fd1c79;
   color: white;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .footer-subscribe-button:hover {
@@ -98,4 +99,16 @@
   padding: 1.5rem 0;
   color: #9ca3af;
   font-size: 0.875rem;
+}
+
+.footer-error {
+  margin-top: 0.5rem;
+  color: #ff5d5d;
+  font-size: 0.98rem;
+}
+
+.footer-success {
+  margin-top: 0.5rem;
+  color: #22c55e;
+  font-size: 0.98rem;
 }

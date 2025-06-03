@@ -3,6 +3,7 @@ import './ServicesPage.css';
 import OurServiceCard from '@/components/OurServiceCard/OurServiceCard';
 import { Button } from '@/components/ui/button';
 import { categoryServices } from '@/data/pricing';
+import { Link } from 'react-router-dom';
 
 function ServicesTabs({ categories, value, onChange }) {
   const listRef = useRef(null);
@@ -84,19 +85,12 @@ const ServicesPage = () => {
           return (
             <div className="services-tabs-content">
               <div className="services-cards-grid">
-                <OurServiceCard
-                  title={activeCategory.title}
-                  image={activeCategory.image}
-                  description={activeCategory.description}
-                  cost={activeCategory.cost}
-                  currency={activeCategory.currency}
-                  estimatedTimeMinutesRange={activeCategory.estimatedTimeMinutesRange}
-                />
                 {activeCategory.services?.map((svc) => (
                   <OurServiceCard
                     key={svc.title}
                     image={svc.image}
                     title={svc.title}
+                    category={activeCategory.title}
                     description={svc.description}
                     cost={svc.cost}
                     currency={svc.currency}
@@ -119,9 +113,11 @@ const ServicesPage = () => {
             Our skilled technicians are ready to provide you with the perfect nail experience.
             Book your appointment today and treat yourself to some well-deserved pampering.
           </p>
-          <Button className="services-booking-btn">
-            BOOK NOW
-          </Button>
+          <Link to="/booking">
+            <Button className="services-booking-btn">
+              BOOK NOW
+            </Button>
+          </Link>
         </div>
       </section>
     </main>

@@ -34,7 +34,7 @@
 .services-tabs-list-wrap {
   position: relative;
   width: 100%;
-  overflow-x: auto;
+
 }
 
 .services-tabs-list {
@@ -155,14 +155,15 @@
   margin-bottom: 2rem;
 }
 .services-booking-btn {
-  background: #111;
+  background: #fd1c79;
   color: #fff;
   padding: 1.2rem 3.5rem;
   font-size: 1.12rem;
   border-radius: 8px;
   border: none;
   transition: background 0.2s;
+  cursor: pointer;
 }
 .services-booking-btn:hover {
-  background: #444;
+  background: #e01968;
 }

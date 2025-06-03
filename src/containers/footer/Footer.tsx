@@ -1,4 +1,4 @@
-// src/containers/Footer.tsx
+import { useState } from "react";
 import { Facebook, Instagram, Twitter, MapPin, Phone, Mail } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
@@ -6,8 +6,28 @@ import './Footer.css';
 import { footerContent } from '@/data/content';
 
 const Footer = () => {
-  const { newsletter, contact, hours, socialLinks, brand, copyright } =
-    footerContent;
+  const { newsletter, contact, hours, socialLinks, brand, copyright } = footerContent;
+
+  // State for newsletter form
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setSubmitted(false);
+
+    // Basic email validation
+    if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+      setError("Please enter a valid email.");
+      return;
+    }
+    // Simulate success (replace this with real API)
+    setSubmitted(true);
+    setEmail('');
+    setTimeout(() => setSubmitted(false), 3500);
+  };
 
   return (
     <footer className="footer">
@@ -16,16 +36,23 @@ const Footer = () => {
           <div className="footer-column">
             <h3 className="footer-title">{newsletter.title}</h3>
             <p className="footer-text">{newsletter.text}</p>
-            <div className="footer-subscribe">
+            <form className="footer-subscribe" onSubmit={handleNewsletterSubmit}>
               <Input
                 type="email"
                 placeholder={newsletter.placeholder}
                 className="footer-input"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                aria-label="Your email address"
+                disabled={submitted}
+                required
               />
-              <Button className="footer-subscribe-button">
+              <Button className="footer-subscribe-button" type="submit" disabled={submitted}>
                 {newsletter.buttonText}
               </Button>
-            </div>
+            </form>
+            {error && <div className="footer-error">{error}</div>}
+            {submitted && <div className="footer-success">Thank you for joining our newsletter!</div>}
           </div>
 
           <div className="footer-column">

@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './BookingPage.css';
-import ServiceCategorySelector from '../../components/ServiceCategorySelector/ServiceCategorySelector';
-import ServiceSelector from '../../components/ServiceSelector/ServiceSelector';
-import DesignerSelector from '../../components/DesignerSelector/DesignerSelector';
-import Scheduler from '../../components/Scheduler/Scheduler';
-import { getDummyBookings, BookingEvent } from '../../data/availableSlots';
-import StepProgressBar from '../../components/StepProgressBar/StepProgressBar';
-import ReviewModal from '../../components/ReviewModal/ReviewModal'; // <-- import
-import SidebarMask from '../../components/SidebarMask/SidebarMask';
+import ServiceCategorySelector from '@/components/ServiceCategorySelector/ServiceCategorySelector';
+import ServiceSelector from '@/components/ServiceSelector/ServiceSelector';
+import DesignerSelector from '@/components/DesignerSelector/DesignerSelector';
+import Scheduler from '@/components/Scheduler/Scheduler';
+import StepProgressBar from '@/components/StepProgressBar/StepProgressBar';
+import ReviewModal from '@/components/ReviewModal/ReviewModal';
+import SidebarMask from '@/components/SidebarMask/SidebarMask';
+import { getDummyBookings, BookingEvent } from '@/data/availableSlots';
 
 const steps = [
   'Select a service category',
@@ -18,6 +19,9 @@ const steps = [
 ];
 
 const BookingPage = () => {
+  const location = useLocation();
+  const navState = location.state || {};
+
   const [formData, setFormData] = useState({
     category: '',
     service: '',
@@ -26,10 +30,32 @@ const BookingPage = () => {
     end: null as Date | null,
   });
   const [events, setEvents] = useState<BookingEvent[]>([]);
-  useEffect(() => { setEvents(getDummyBookings()); }, []);
-
   const [step, setStep] = useState(0);
   const [showReview, setShowReview] = useState(false);
+
+  // On mount, prefill category/service if passed from ServicesPage
+  useEffect(() => {
+    if (navState.category) {
+      setFormData(prev => ({
+        ...prev,
+        category: navState.category,
+        service: navState.service || '',
+        designer: '',
+        start: null,
+        end: null,
+      }));
+      
+      // Set step appropriately
+      if (navState.service) setStep(2); // skip to select designer
+      else setStep(1); // go to select service in category
+    }
+    // If no state, just start at step 0 (default)
+    // eslint-disable-next-line
+  }, [navState.category, navState.service]);
+
+  useEffect(() => {
+    setEvents(getDummyBookings());
+  }, []);
 
   const goToStep = (targetStep: number) => {
     setStep(targetStep);
@@ -48,10 +74,10 @@ const BookingPage = () => {
     (step === 2 && !!formData.designer) ||
     (step === 3 && !!formData.start && !!formData.end);
 
-  const handleNext = () => { 
+  const handleNext = () => {
     if (canProceed) {
       if (step === 3) setShowReview(true);
-      else setStep((s) => s + 1);
+      else setStep(s => s + 1);
     }
   };
   const handleBack = () => { if (step > 0) goToStep(step - 1); };
@@ -72,7 +98,7 @@ const BookingPage = () => {
   const handleSelectSlot = (slotInfo: any) => {
     setFormData(prev => ({ ...prev, start: slotInfo.start, end: slotInfo.end }));
     setStep(4);
-    setShowReview(true); // open modal immediately on slot pick
+    setShowReview(true);
   };
 
   const handleSubmit = (e?: React.FormEvent) => {
@@ -93,7 +119,7 @@ const BookingPage = () => {
 
   const handleReviewClose = () => {
     setShowReview(false);
-    setStep(3); // Go back to scheduler
+    setStep(3);
   };
 
   return (
@@ -108,38 +134,35 @@ const BookingPage = () => {
           />
         </div>
         <div className="booking-body">
-        <aside className="booking-sidebar" style={{ position: "relative" }}>
-          {/* Step 0–2: show only one selector */}
-          {step === 0 && (
-            <ServiceCategorySelector value={formData.category} onChange={handleCategoryChange} />
-          )}
-          {step === 1 && (
-            <ServiceSelector value={formData.service} category={formData.category} onChange={handleServiceChange} />
-          )}
-          {step === 2 && (
-            <DesignerSelector value={formData.designer} onChange={handleDesignerChange} />
-          )}
-
-          {/* Step 3 and above: show all previous as read-only */}
-          {step >= 3 && (
-            <>
-              <ServiceCategorySelector value={formData.category} onChange={() => {}}  />
-              <ServiceSelector value={formData.service} category={formData.category} onChange={() => {}}  />
-              <DesignerSelector value={formData.designer} onChange={() => {}}  />
-              <SidebarMask text="Your selections are locked in. To change, go back." />
-            </>
-          )}
-        </aside>
+          <aside className="booking-sidebar" style={{ position: "relative" }}>
+            {step === 0 && (
+              <ServiceCategorySelector value={formData.category} onChange={handleCategoryChange} />
+            )}
+            {step === 1 && (
+              <ServiceSelector value={formData.service} category={formData.category} onChange={handleServiceChange} />
+            )}
+            {step === 2 && (
+              <DesignerSelector value={formData.designer} onChange={handleDesignerChange} />
+            )}
+            {step >= 3 && (
+              <>
+                <ServiceCategorySelector value={formData.category} onChange={() => {}} />
+                <ServiceSelector value={formData.service} category={formData.category} onChange={() => {}} />
+                <DesignerSelector value={formData.designer} onChange={() => {}} />
+                <SidebarMask text="Your selections are locked in. To change, go back." />
+              </>
+            )}
+          </aside>
           <div className="booking-main">
-            {/* Always show scheduler, but disable slot selection unless step===3 */}
             <div className="calendar-wrapper">
+              <h3 className="designer-heading">Select date & time</h3>
               <Scheduler
                 events={events}
                 onSelectSlot={handleSelectSlot}
                 selectable={step === 3}
               />
-              {step < 3 && (<SidebarMask text="Select category, service, and artist to choose a time" />
-
+              {step < 3 && (
+                <SidebarMask text="Select category, service, and artist to choose a time" />
               )}
             </div>
           </div>

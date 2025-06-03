@@ -103,6 +103,7 @@
 .book-button {
   background-color: #fd1c79;
   color: white;
+  cursor: pointer;
 }
 
 .book-button:hover {
@@ -175,4 +176,15 @@
   .mobile-nav {
     display: none;
   }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.logo-img {
+  width: 32px;  /* or your desired size */
+  height: 32px;
+  object-fit: contain;
 }

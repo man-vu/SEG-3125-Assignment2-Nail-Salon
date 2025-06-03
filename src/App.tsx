@@ -1,18 +1,97 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import Header from './components/Header/Header';
 import Footer from './containers/footer/Footer';
 import Hero from './containers/hero/Hero';
 import Services from './containers/services/Services';
 import About from './containers/about/About';
 import Testimonials from './containers/testimonials/Testimonials';
-import Gallery from './containers/gallery/Gallery'; // (Keep your existing import)
+import Gallery from './containers/gallery/Gallery';
 import GiftCards from './containers/gift-cards/GiftCards';
-import Pricing from './containers/pricing/Pricing';
-import Promotions from './containers/promotions/Promotions';
-import LatestNews from './containers/latest-news/LatestNews';
 import BookingPage from './pages/BookingPage/BookingPage';
 import ServicesPage from './pages/ServicesPage/ServicesPage';
 import TeamPage from './pages/TeamPage/TeamPage';
+import ContactUsPage from './pages/ContactUsPage/ContactUsPage';
+import GiftCardPage from './pages/GiftCardPage/GiftCardPage';
+
+const pageTransition = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -30 },
+  transition: { duration: 0.4 },
+};
+
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route
+          path="/"
+          element={
+            <motion.div {...pageTransition}>
+              <Hero />
+              <Services />
+              <About />
+              <Testimonials />
+              <Gallery />
+              <GiftCards />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/booking"
+          element={
+            <motion.div {...pageTransition}>
+              <BookingPage />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/gallery"
+          element={
+            <motion.div {...pageTransition}>
+              <Gallery />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/services"
+          element={
+            <motion.div {...pageTransition}>
+              <ServicesPage />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/team"
+          element={
+            <motion.div {...pageTransition}>
+              <TeamPage />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/contactus"
+          element={
+            <motion.div {...pageTransition}>
+              <ContactUsPage />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/gift-cards"
+          element={
+            <motion.div {...pageTransition}>
+              <GiftCardPage />
+            </motion.div>
+          }
+        />
+      </Routes>
+    </AnimatePresence>
+  );
+}
 
 function App() {
   return (
@@ -20,28 +99,7 @@ function App() {
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <Hero />
-                  <Services />
-                  <About />
-                  <Testimonials />
-                  <Gallery />
-                  <GiftCards />
-                  <Pricing />
-                  <Promotions />
-                  <LatestNews />
-                </>
-              }
-            />
-            <Route path="/booking" element={<BookingPage />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/team" element={<TeamPage />} />
-          </Routes>
+          <AnimatedRoutes />
         </main>
         <Footer />
       </div>

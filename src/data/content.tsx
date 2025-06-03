@@ -1,23 +1,21 @@
+import { url } from "inspector";
+
 // src/headerContent.tsx
 export const headerContent = {
-  logoText: 'DREAMY NAIL & BEAUTY',
+  logoText: 'REAMY NAIL & BEAUTY',
   bookNowButton: 'Book Now',
   menuItems: [
     {
-      title: 'About',
-      dropdown: true,
+      title: 'Home',
+      url: '/',
+      dropdown: false,
       items: [
-        { name: 'About Studio', url: '#about-3' },
-        { name: 'Why Dreamy Nail & Beauty?', url: '#about-9' },
-        { name: 'Testimonials', url: '#reviews' },
-        { name: 'Best Experience', url: '#promo-4' },
-        { name: 'Our Promotions', url: '#promo-2' },
       ],
     },
-    { title: 'Technicians', url: '/team', dropdown: false }, 
     { title: 'Our Services', url: '/services', dropdown: false },
+    { title: 'Technicians', url: '/team', dropdown: false }, 
     { title: 'Gallery', url: '/gallery', dropdown: false },
-    { title: 'Contacts', url: '#footer-2', dropdown: false },
+    { title: 'Contact Us', url: '/contactus', dropdown: false },
   ],
 };
 
@@ -148,7 +146,7 @@ export const heroSlides = [
     title: 'PROFESSIONAL',
     subtitle: 'NAIL CARE SERVICES',
     buttonText: 'View Services',
-    buttonLink: '#services',
+    buttonLink: '/services',
   },
   {
     image: '/src/assets/nail-salon/3.jpg',
@@ -162,7 +160,7 @@ export const heroSlides = [
     title: 'LUXURY',
     subtitle: 'SPA EXPERIENCE',
     buttonText: 'Explore More',
-    buttonLink: '#promotions',
+    buttonLink: '/gallery',
   },
 ];
 
@@ -330,14 +328,16 @@ export const pricingContent = {
 
 // src/data/giftCardsContent.tsx
 export const giftCardsContent = {
-  followTitle: 'Follow & Share',
-  followHandle: '@dreamy_nail_beauty',
-  followButtonText: 'Follow Us',
-
-  promoTitle: 'Gift Cards',
-  promoText: 'Give the gift of beauty and self-care. Treat someone special to a dreamy nail and beauty experience.',
-  promoButtonText: 'Purchase Now',
+  followTitle: "Follow Us",
+  followHandle: "@dreamynailbeauty",
+  followButtonText: "Follow on Instagram",
+  followLink: "https://instagram.com/dreamynailbeauty",
+  promoTitle: "Gift Cards",
+  promoText: "Perfect gift for any occasion. Available instantly.",
+  promoButtonText: "Get Gift Card",
+  promoLink: "/gift-cards",
 };
+
 
 // src/data/footerContent.tsx
 export const footerContent = {
@@ -368,6 +368,6 @@ export const footerContent = {
     twitter: 'https://twitter.com/@dreamynailbeauty',
   },
   copyright: (brand: string) =>
-    `© ${new Date().getFullYear()} ${brand}. Crafted with care in Ottawa.`,
+    `© ${new Date().getFullYear()} ${brand}. Designed by Man Vu.`,
   brand: 'Dreamy Nail & Beauty',
 };

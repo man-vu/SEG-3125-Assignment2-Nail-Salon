@@ -1,143 +1,86 @@
-import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import { Button } from '../ui/button';
-import { cn } from '@/lib/utils';
-import './Header.css';
-import { headerContent } from '@/data/content';
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
+import "./Header.css";
+import { headerContent } from "@/data/content";
+import logo192 from '@/assets/icons/logo192.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-  const toggleDropdown = (dropdown: string) => {
-    setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
-  };
-
-  // Collapse dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setActiveDropdown(null);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    const handleClickOutside = (e: MouseEvent) =>
+      dropdownRef.current && !dropdownRef.current.contains(e.target as Node) && setActiveDropdown(null);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const toggleDropdown = (d: string) => setActiveDropdown(activeDropdown === d ? null : d);
 
   return (
     <header className="header">
       <div className="header-container">
         <Link to="/" className="logo">
+          <img src={logo192} alt="Logo" className="logo-img" />
           {headerContent.logoText}
         </Link>
-
         <nav className="desktop-nav">
-          {headerContent.menuItems.map((item, index) => (
-            <div key={index} className="nav-item" ref={item.dropdown ? dropdownRef : null}>
+          {headerContent.menuItems.map((item, i) => (
+            <div key={i} className="nav-item" ref={item.dropdown ? dropdownRef : null}>
               {item.dropdown ? (
-                <button className="nav-link" onClick={() => toggleDropdown(item.title)}>
-                  {item.title}
-                  <ChevronDown className="icon-chevron" />
-                </button>
+                <>
+                  <button className="nav-link" onClick={() => toggleDropdown(item.title)}>
+                    {item.title}<ChevronDown className="icon-chevron" />
+                  </button>
+                  <div className={cn("dropdown", activeDropdown === item.title ? "show" : "hide")}>
+                    {item.items?.map((drop, j) =>
+                      <Link key={j} to={drop.url} className="dropdown-item">{drop.name}</Link>
+                    )}
+                  </div>
+                </>
               ) : (
-                <Link to={item.url || '#'} className="nav-link">
-                  {item.title}
-                </Link>
-              )}
-              {item.dropdown && (
-                <div
-                  className={cn(
-                    'dropdown',
-                    activeDropdown === item.title ? 'show' : 'hide'
-                  )}
-                >
-                  {item.items?.map((dropdownItem, idx) => (
-                    <Link
-                      key={idx}
-                      to={dropdownItem.url}
-                      className="dropdown-item"
-                    >
-                      {dropdownItem.name}
-                    </Link>
-                  ))}
-                </div>
+                <Link to={item.url || "#"} className="nav-link">{item.title}</Link>
               )}
             </div>
           ))}
         </nav>
-
         <div className="book-button-desktop">
-          <Link to="/booking">
-            <Button className="book-button">
-              {headerContent.bookNowButton}
-            </Button>
-          </Link>
+          <Link to="/booking"><Button className="book-button">{headerContent.bookNowButton}</Button></Link>
         </div>
-
-        <button className="mobile-menu-button" onClick={toggleMenu}>
+        <button className="mobile-menu-button" onClick={() => setIsMenuOpen(v => !v)}>
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
-
       {isMenuOpen && (
         <div className="mobile-nav">
-          {headerContent.menuItems.map((item, index) => (
-            <div key={index}>
+          {headerContent.menuItems.map((item, i) => (
+            <div key={i}>
               {item.dropdown ? (
                 <>
-                  <button
-                    className="mobile-nav-link"
-                    onClick={() => toggleDropdown(item.title)}
-                  >
+                  <button className="mobile-nav-link" onClick={() => toggleDropdown(item.title)}>
                     {item.title}
-                    <ChevronDown
-                      className={cn(
-                        'icon-chevron',
-                        activeDropdown === item.title ? 'rotate' : ''
-                      )}
-                    />
+                    <ChevronDown className={cn("icon-chevron", activeDropdown === item.title && "rotate")} />
                   </button>
-                  {activeDropdown === item.title && (
+                  {activeDropdown === item.title &&
                     <div className="mobile-dropdown">
-                      {item.items?.map((dropdownItem, idx) => (
-                        <Link
-                          key={idx}
-                          to={dropdownItem.url}
-                          className="mobile-dropdown-item"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          {dropdownItem.name}
-                        </Link>
-                      ))}
+                      {item.items?.map((drop, j) =>
+                        <Link key={j} to={drop.url} className="mobile-dropdown-item" onClick={() => setIsMenuOpen(false)}>{drop.name}</Link>
+                      )}
                     </div>
-                  )}
+                  }
                 </>
               ) : (
-                <Link
-                  to={item.url || '#'}
-                  className="mobile-nav-link"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.title}
-                </Link>
+                <Link to={item.url || "#"} className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>{item.title}</Link>
               )}
             </div>
           ))}
-        <div className="mobile-book-button">
-          <Link to="/booking">
-            <Button className="book-button">
-              {headerContent.bookNowButton}
-            </Button>
-          </Link>
-        </div>
+          <div className="mobile-book-button">
+            <Link to="/booking"><Button className="book-button">{headerContent.bookNowButton}</Button></Link>
+          </div>
         </div>
       )}
     </header>

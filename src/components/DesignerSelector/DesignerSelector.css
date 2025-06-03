@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  color: white;
 }
 
 .designer-heading {
@@ -14,43 +13,75 @@
 
 .designer-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1rem;
 }
 
 .designer-card {
   background-color: #fd1c79;
   border: 2px solid transparent;
-  border-radius: 10px;
-  padding: 1rem;
+  border-radius: 12px;
+  padding: 1.25rem 1rem 1rem 1rem;
   cursor: pointer;
-  transition: border-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+  transition: border-color 0.3s, background 0.3s, transform 0.17s;
+  box-shadow: 0 2px 10px 0 rgba(32,32,32,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 215px;
 }
 
 .designer-card:hover {
   border-color: #fd1c79;
-  transform: scale(1.02);
+  transform: translateY(-2px) scale(1.025);
+  background: #f753a6;
 }
 
 .designer-card.selected {
-  border-color: #fd1c79;
+  border-color: #fff;
   background-color: #262838;
 }
 
 .designer-avatar {
-  width: 80px;
-  height: 80px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.7rem;
+  border: 2px solid #fff;
+  background: #faf8f8;
 }
 
 .designer-name {
-  font-size: 1rem;
-  margin: 0.25rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.18rem;
+  color: #fff;
+  letter-spacing: 0.01em;
+}
+
+.designer-title {
+  font-size: 0.93rem;
+  color: #f8e2f7;
+  margin-bottom: 0.38rem;
+  font-style: italic;
 }
 
 .designer-bio {
-  font-size: 0.875rem;
-  color: #ffffff;
+  font-size: 0.92rem;
+  color: #fff;
+  opacity: 0.94;
+  margin-bottom: 0;
+  margin-top: 0.15rem;
+}
+
+@media (max-width: 700px) {
+  .designer-grid {
+    grid-template-columns: 1fr;
+  }
+  .designer-card {
+    min-height: 160px;
+    padding: 1rem;
+  }
 }
