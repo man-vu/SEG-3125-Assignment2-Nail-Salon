@@ -28,19 +28,19 @@ const StepProgressBar: React.FC<StepProgressBarProps> = ({ steps, currentStep, o
               style={{
                 cursor: isClickable ? 'pointer' : 'default',
                 backgroundColor: isActive
-                  ? '#fd1c79'
+                  ? 'var(--color-primary)'
                   : isCompleted
                   ? '#e0e0e0'
                   : '#f3f3f3',
                 color: isActive
                   ? 'white'
                   : isCompleted
-                  ? '#fd1c79'
+                  ? 'var(--color-primary)'
                   : '#bbb',
                 border: isActive
-                  ? '2px solid #fd1c79'
+                  ? '2px solid var(--color-primary)'
                   : isCompleted
-                  ? '2px solid #fd1c79'
+                  ? '2px solid var(--color-primary)'
                   : '2px solid #eee',
                 boxShadow: isActive ? '0 0 0 2px #fff' : 'none',
                 transition: 'background 0.2s,color 0.2s,border 0.2s',
@@ -51,7 +51,7 @@ const StepProgressBar: React.FC<StepProgressBarProps> = ({ steps, currentStep, o
             <div
               className="step-label"
               style={{
-                color: isActive ? '#fd1c79' : isCompleted ? '#888' : '#bbb',
+                color: isActive ? 'var(--color-primary)' : isCompleted ? '#888' : '#bbb',
                 fontWeight: isActive ? 600 : 400,
               }}
             >

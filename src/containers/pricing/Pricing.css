@@ -1,11 +1,4 @@
-:root {
-  --primary-color: #fd1c79;
-  --primary-hover: #e01968;
-  --text-dark: #2c3e50;
-  --text-light: #6c757d;
-  --bg-light: #f9fafb;
-}
-
+/* relies on CSS variables defined in globals.css */
 /* SECTION */
 .pricing-section {
   padding: 4rem 0;
@@ -26,19 +19,19 @@
 .pricing-header h2 {
   font-size: 1.875rem;
   font-weight: bold;
-  color: var(--text-dark);
+  color: var(--color-text-dark);
 }
 
 .divider {
   width: 5rem;
   height: 0.25rem;
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
   margin: 1rem auto 0;
 }
 
 .pricing-header p {
   margin-top: 1rem;
-  color: var(--text-light);
+  color: var(--color-text-muted);
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -67,12 +60,12 @@
 }
 
 .price-card.popular {
-  border: 2px solid var(--primary-color);
+  border: 2px solid var(--color-primary);
   transform: scale(1.05);
 }
 
 .ribbon {
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
   color: white;
   font-size: 0.875rem;
   font-weight: 500;
@@ -90,13 +83,13 @@
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: var(--text-dark);
+  color: var(--color-text-dark);
 }
 
 .card-price {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--primary-color);
+  color: var(--color-primary);
   margin-bottom: 1.5rem;
 }
 
@@ -112,11 +105,11 @@
   align-items: flex-start;
   gap: 0.5rem;
   margin-bottom: 0.75rem;
-  color: var(--text-light);
+  color: var(--color-text-muted);
 }
 
 .check-icon {
-  color: var(--primary-color);
+  color: var(--color-primary);
   margin-top: 0.25rem;
 }
 
@@ -130,17 +123,17 @@
 }
 
 .card-button.primary {
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
   color: white;
 }
 
 .card-button.primary:hover {
-  background-color: var(--primary-hover);
+  background-color: var(--color-primary-hover);
 }
 
 .card-button.secondary {
   background-color: #f3f4f6;
-  color: var(--text-dark);
+  color: var(--color-text-dark);
 }
 
 .card-button.secondary:hover {
@@ -154,14 +147,14 @@
 }
 
 .pricing-cta p {
-  color: var(--text-light);
+  color: var(--color-text-muted);
   margin-bottom: 1rem;
 }
 
 .pricing-link {
   background: none;
   border: none;
-  color: var(--primary-color);
+  color: var(--color-primary);
   font-weight: 500;
   cursor: pointer;
 }

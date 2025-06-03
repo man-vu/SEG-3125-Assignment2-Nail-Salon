@@ -11,7 +11,7 @@
 .booking-header {
   width: 100%;
   padding-bottom: 1.5rem;
-  border-bottom: 2px solid #fd1c79;
+  border-bottom: 2px solid var(--color-primary);
   margin-bottom: 2rem;
 }
 
@@ -19,7 +19,7 @@
   margin: 0 0 1rem 0;
   font-size: 2rem;
   font-weight: 600;
-  color: #fd1c79;
+  color: var(--color-primary);
   text-align: center;
 }
 
@@ -40,7 +40,7 @@
 
 .booking-title {
   font-size: 1.8rem;
-  color: #fd1c79;
+  color: var(--color-primary);
   font-weight: 600;
   text-align: left;
 }
@@ -54,7 +54,7 @@
 }
 
 .booking-submit {
-  background-color: #fd1c79;
+  background-color: var(--color-primary);
   color: white;
   padding: 0.9rem;
   border-radius: 8px;
@@ -68,7 +68,7 @@
 }
 
 .booking-submit:hover {
-  background-color: #e01968;
+  background-color: var(--color-primary-hover);
 }
 
 /* Step Progress Bar */
@@ -90,7 +90,7 @@
 }
 
 .step-circle {
-  background-color: #fd1c79;
+  background-color: var(--color-primary);
   color: white;
   font-weight: bold;
   border-radius: 50%;

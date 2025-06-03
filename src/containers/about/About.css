@@ -1,6 +1,6 @@
 .about-section {
   padding: 4rem 0;
-  background-color: #f9fafb;
+  background-color: var(--color-bg-light);
 }
 
 .about-container {
@@ -41,11 +41,11 @@
   font-size: 1.875rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: #2c3e50;
+  color: var(--color-text-dark);
 }
 
 .about-text {
-  color: #6c757d;
+  color: var(--color-text-muted);
   margin-bottom: 1rem;
 }
 
@@ -68,27 +68,27 @@
 }
 
 .feature-icon {
-  color: #fd1c79;
+  color: var(--color-primary);
   margin-right: 0.75rem;
   margin-top: 0.25rem;
 }
 
 .feature-title {
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--color-text-dark);
   margin-bottom: 0.25rem;
 }
 
 .feature-description {
   font-size: 0.875rem;
-  color: #6c757d;
+  color: var(--color-text-muted);
 }
 
 .about-button {
-  background-color: #fd1c79;
+  background-color: var(--color-primary);
   color: white;
 }
 
 .about-button:hover {
-  background-color: #e01968;
+  background-color: var(--color-primary-hover);
 }

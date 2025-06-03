@@ -47,7 +47,7 @@
 
 .nailcare-button {
   background-color: white;
-  color: #fd1c79;
+  color: var(--color-primary);
 }
 
 .nailcare-button:hover {

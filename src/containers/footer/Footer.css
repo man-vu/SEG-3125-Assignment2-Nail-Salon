@@ -1,5 +1,5 @@
 .footer {
-  background-color: #2c3e50;
+  background-color: var(--color-text-dark);
   color: white;
   padding-top: 4rem;
 }
@@ -50,14 +50,14 @@
 }
 
 .footer-subscribe-button {
-  background-color: #fd1c79;
+  background-color: var(--color-primary);
   color: white;
   white-space: nowrap;
   cursor: pointer;
 }
 
 .footer-subscribe-button:hover {
-  background-color: #e01968;
+  background-color: var(--color-primary-hover);
 }
 
 .footer-contact li,
@@ -74,7 +74,7 @@
 }
 
 .footer-icon {
-  color: #fd1c79;
+  color: var(--color-primary);
   flex-shrink: 0;
 }
 
@@ -90,7 +90,7 @@
 }
 
 .footer-social a:hover {
-  color: #fd1c79;
+  color: var(--color-primary);
 }
 
 .footer-bottom {

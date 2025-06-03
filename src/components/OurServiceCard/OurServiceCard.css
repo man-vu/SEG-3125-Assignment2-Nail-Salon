@@ -61,7 +61,7 @@
 .our-card-btn {
   margin-top: auto;
   width: 100%;
-  background: #fd1c79 !important;
+  background: var(--color-primary) !important;
   color: #fff !important;
   border-radius: 5px !important;
   font-weight: 500 !important;
@@ -72,6 +72,6 @@
   cursor: pointer;
 }
 .our-card-btn:hover {
-  background: #e01968 !important;
+  background: var(--color-primary-hover) !important;
   color: #fff !important;
 }

@@ -7,7 +7,7 @@
 .service-selector-heading {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #fd1c79;
+  color: var(--color-primary);
   margin-bottom: 0.25rem;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .service-selector-card {
-  background-color: #fd1c79;
+  background-color: var(--color-primary);
   border: 2px solid transparent;
   border-radius: 10px;
   padding: 1rem;
@@ -33,12 +33,12 @@
 }
 
 .service-selector-card:hover {
-  border-color: #fd1c79;
+  border-color: var(--color-primary);
   transform: scale(1.02);
 }
 
 .service-selector-card.selected {
-  border-color: #fd1c79;
+  border-color: var(--color-primary);
   background-color: #262838;
 }
 
@@ -70,6 +70,6 @@
 }
 
 .service-selector-card.selected {
-  border: 2px solid #fd1c79;
+  border: 2px solid var(--color-primary);
   background-color: #1d1e2a;
 }
