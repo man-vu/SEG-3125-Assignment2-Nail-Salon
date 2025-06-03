@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "../ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 import "./Header.css";
 import { headerContent } from "@/data/content";
@@ -12,6 +13,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) =>
@@ -64,6 +66,11 @@ const Header = () => {
             </div>
           ))}
         </nav>
+        {user ? (
+          <button onClick={logout} className="nav-link">Logout</button>
+        ) : (
+          <Link to="/login" className="nav-link">Login</Link>
+        )}
         <div className="book-button-desktop">
           <Link to="/booking"><Button className="book-button">{headerContent.bookNowButton}</Button></Link>
         </div>
@@ -109,6 +116,15 @@ const Header = () => {
                 )}
               </div>
             ))}
+            {user ? (
+              <button className="mobile-nav-link" onClick={() => { logout(); setIsMenuOpen(false); }}>
+                Logout
+              </button>
+            ) : (
+              <Link to="/login" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>
+                Login
+              </Link>
+            )}
             <div className="mobile-book-button">
               <Link to="/booking"><Button className="book-button">{headerContent.bookNowButton}</Button></Link>
             </div>
