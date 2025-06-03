@@ -8,11 +8,13 @@ import About from './containers/about/About';
 import Testimonials from './containers/testimonials/Testimonials';
 import Gallery from './containers/gallery/Gallery';
 import GiftCards from './containers/gift-cards/GiftCards';
-import BookingPage from './pages/BookingPage/BookingPage';
-import ServicesPage from './pages/ServicesPage/ServicesPage';
-import TeamPage from './pages/TeamPage/TeamPage';
-import ContactUsPage from './pages/ContactUsPage/ContactUsPage';
-import GiftCardPage from './pages/GiftCardPage/GiftCardPage';
+import { lazy, Suspense } from 'react';
+
+const BookingPage = lazy(() => import('./pages/BookingPage/BookingPage'));
+const ServicesPage = lazy(() => import('./pages/ServicesPage/ServicesPage'));
+const TeamPage = lazy(() => import('./pages/TeamPage/TeamPage'));
+const ContactUsPage = lazy(() => import('./pages/ContactUsPage/ContactUsPage'));
+const GiftCardPage = lazy(() => import('./pages/GiftCardPage/GiftCardPage'));
 
 const pageTransition = {
   initial: { opacity: 0, y: 30 },
@@ -99,7 +101,9 @@ function App() {
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow">
-          <AnimatedRoutes />
+          <Suspense fallback={<div>Loading...</div>}>
+            <AnimatedRoutes />
+          </Suspense>
         </main>
         <Footer />
       </div>

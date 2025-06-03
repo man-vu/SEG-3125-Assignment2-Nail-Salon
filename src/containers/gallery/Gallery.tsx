@@ -95,6 +95,7 @@ const Gallery = () => {
         src={selectedImage}
         alt="Enlarged nail design"
         style={{ maxWidth: "90vw", maxHeight: "80vh", borderRadius: "12px" }}
+        loading="lazy"
       />
     </motion.div>
   </div>

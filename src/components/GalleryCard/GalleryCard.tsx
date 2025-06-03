@@ -23,7 +23,7 @@ const GalleryCard = ({ src, alt, onClick }: GalleryCardProps) => {
       animate="initial"
       style={{ cursor: "pointer", overflow: "hidden", position: "relative" }}
     >
-      <img src={src} alt={alt} style={{ width: "100%", height: "auto", display: "block", borderRadius: "8px" }} />
+      <img src={src} alt={alt} loading="lazy" style={{ width: "100%", height: "auto", display: "block", borderRadius: "8px" }} />
       <motion.figcaption
         className="gallery-overlay"
         variants={overlayVariants}

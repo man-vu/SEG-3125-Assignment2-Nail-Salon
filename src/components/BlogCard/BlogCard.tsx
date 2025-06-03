@@ -11,10 +11,11 @@ const BlogCard = ({ image, date, title, excerpt }: BlogCardProps) => {
   return (
     <div className="blog-card">
       <div className="blog-card-image-wrapper">
-        <img 
-          src={image} 
-          alt={title} 
+        <img
+          src={image}
+          alt={title}
           className="blog-card-image"
+          loading="lazy"
         />
         <div className="blog-card-date">
           {date}

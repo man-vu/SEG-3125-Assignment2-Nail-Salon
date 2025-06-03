@@ -14,7 +14,7 @@ const TestimonialCard = ({ name, role, image, quote, rating }: TestimonialCardPr
   return (
     <div className="testimonial-card">
       <div className="avatar">
-        <img src={image} alt={name} />
+        <img src={image} alt={name} loading="lazy" />
       </div>
       <div className="stars">
         {[...Array(rating)].map((_, i) => (

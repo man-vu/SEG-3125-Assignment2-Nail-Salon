@@ -11,7 +11,7 @@ const About = () => {
       <div className="about-container">
         <div className="about-grid">
           <div className="about-image-wrapper">
-            <img src={image.src} alt={image.alt} className="about-image" />
+            <img src={image.src} alt={image.alt} className="about-image" loading="lazy" />
           </div>
 
           <div className="about-content">

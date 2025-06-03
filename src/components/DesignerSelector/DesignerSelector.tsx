@@ -25,6 +25,7 @@ const DesignerSelector = ({ value, onChange }: Props) => {
               src={designer.avatar}
               alt={designer.name}
               className="designer-avatar"
+              loading="lazy"
             />
             <div>
               <h4 className="designer-name">{designer.name}</h4>

@@ -13,7 +13,7 @@ const ServiceCard = ({ title, image, description }: ServiceCardProps) => {
   return (
     <div className="service-card">
       <div className="service-image">
-        <img src={image} alt={title} />
+        <img src={image} alt={title} loading="lazy" />
       </div>
 
       <div className="service-content">
