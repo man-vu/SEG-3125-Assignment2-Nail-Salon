@@ -1,6 +1,6 @@
 .testimonials-section {
   padding: 4rem 0;
-  background-color: #f9fafb;
+  background-color: var(--color-bg-light);
 }
 
 .testimonials-container {
@@ -17,13 +17,13 @@
 .section-header h2 {
   font-size: 1.875rem;
   font-weight: bold;
-  color: #2c3e50;
+  color: var(--color-text-dark);
 }
 
 .section-divider {
   width: 5rem;
   height: 0.25rem;
-  background-color: #fd1c79;
+  background-color: var(--color-primary);
   margin: 1rem auto 0;
 }
 
@@ -78,7 +78,7 @@
 }
 
 blockquote {
-  color: #6c757d;
+  color: var(--color-text-muted);
   font-style: italic;
   margin-bottom: 1.5rem;
 }
@@ -86,11 +86,11 @@ blockquote {
 .testimonial-card h4 {
   font-weight: bold;
   font-size: 1.125rem;
-  color: #2c3e50;
+  color: var(--color-text-dark);
 }
 
 .testimonial-card p {
-  color: #fd1c79;
+  color: var(--color-primary);
 }
 
 .nav-button {
@@ -101,12 +101,12 @@ blockquote {
   padding: 0.5rem;
   border-radius: 9999px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  color: #6c757d;
+  color: var(--color-text-muted);
   transition: color 0.3s ease;
 }
 
 .nav-button:hover {
-  color: #fd1c79;
+  color: var(--color-primary);
 }
 
 .nav-button.left {
@@ -135,13 +135,13 @@ blockquote {
 }
 
 .dot.active {
-  background-color: #fd1c79;
+  background-color: var(--color-primary);
   transform: scale(1.25);
 }
 
 .testimonials-section {
   padding: 4rem 0;
-  background-color: #f9fafb;
+  background-color: var(--color-bg-light);
 }
 
 .testimonial-swiper {

@@ -22,6 +22,12 @@
     --destructive: 0 100% 50%;
     --destructive-foreground: 210 40% 98%;
     --ring: 215 20.2% 65.1%;
+    /* Hex color references for global use */
+    --color-primary: #fd1c79;
+    --color-primary-hover: #e01968;
+    --color-text-dark: #2c3e50;
+    --color-text-muted: #6c757d;
+    --color-bg-light: #f9fafb;
     --radius: 0.5rem;
   }
 

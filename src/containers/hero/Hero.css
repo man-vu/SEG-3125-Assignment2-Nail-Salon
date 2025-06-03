@@ -64,7 +64,7 @@
 }
 
 .hero-button {
-  background-color: #fd1c79;
+  background-color: var(--color-primary);
   color: white;
   padding: 1rem 2rem;
   font-size: 1.125rem;
@@ -73,7 +73,7 @@
 }
 
 .hero-button:hover {
-  background-color: #e01968;
+  background-color: var(--color-primary-hover);
 }
 
 .hero-indicators {

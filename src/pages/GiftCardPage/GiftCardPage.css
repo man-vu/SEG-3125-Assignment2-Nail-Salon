@@ -18,7 +18,7 @@
 }
 
 .giftcard-title {
-  color: #fd1c79;
+  color: var(--color-primary);
   font-size: 2.1rem;
   margin-bottom: 0.7rem;
   font-weight: 700;
@@ -47,9 +47,9 @@
 }
 
 .giftcard-amount-btn {
-  border: 1.5px solid #fd1c79;
+  border: 1.5px solid var(--color-primary);
   background: #fff;
-  color: #fd1c79;
+  color: var(--color-primary);
   font-size: 1rem;
   font-weight: 600;
   padding: 0.7rem 1.5rem;
@@ -59,7 +59,7 @@
 }
 .giftcard-amount-btn.selected,
 .giftcard-amount-btn:hover {
-  background: #fd1c79;
+  background: var(--color-primary);
   color: #fff;
 }
 
@@ -75,7 +75,7 @@
 
 .giftcard-purchase-btn {
   width: 100%;
-  background: #fd1c79;
+  background: var(--color-primary);
   color: #fff;
   font-size: 1.09rem;
   border-radius: 7px;

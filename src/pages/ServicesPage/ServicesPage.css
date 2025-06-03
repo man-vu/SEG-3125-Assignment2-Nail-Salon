@@ -155,7 +155,7 @@
   margin-bottom: 2rem;
 }
 .services-booking-btn {
-  background: #fd1c79;
+  background: var(--color-primary);
   color: #fff;
   padding: 1.2rem 3.5rem;
   font-size: 1.12rem;
@@ -165,5 +165,5 @@
   cursor: pointer;
 }
 .services-booking-btn:hover {
-  background: #e01968;
+  background: var(--color-primary-hover);
 }

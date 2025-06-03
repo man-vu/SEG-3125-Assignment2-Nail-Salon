@@ -19,7 +19,7 @@
   font-size: 2.7rem;
   font-family: 'Playfair Display', serif;
   font-weight: 700;
-  color: #fd1c79;
+  color: var(--color-primary);
   letter-spacing: 1px;
   margin-bottom: 0.3rem;
 }
@@ -61,7 +61,7 @@
 }
 
 .newsletter-title {
-  color: #fd1c79;
+  color: var(--color-primary);
   font-size: 1.18rem;
   font-weight: 700;
   margin-bottom: 0.35rem;
@@ -82,7 +82,7 @@
   flex: 1;
   background: #18181c;
   color: #fff;
-  border: 1px solid #fd1c79;
+  border: 1px solid var(--color-primary);
   border-radius: 8px;
   padding: 0.7rem 1rem;
   font-size: 1rem;
@@ -90,7 +90,7 @@
 }
 
 .newsletter-btn {
-  background: #fd1c79;
+  background: var(--color-primary);
   color: #fff;
   font-weight: 700;
   border-radius: 8px;
@@ -121,7 +121,7 @@
 .contact-subtitle {
   font-size: 1.09rem;
   font-weight: 600;
-  color: #fd1c79;
+  color: var(--color-primary);
   margin-bottom: 0.3rem;
   letter-spacing: 0.5px;
 }
@@ -140,7 +140,7 @@
   transition: color 0.2s;
 }
 .contact-row a:hover {
-  color: #fd1c79;
+  color: var(--color-primary);
 }
 
 .contact-hours {
@@ -170,7 +170,7 @@
 }
 
 .footer-links a {
-  color: #fd1c79;
+  color: var(--color-primary);
   margin: 0 0.35em;
   text-decoration: underline;
   font-weight: 500;

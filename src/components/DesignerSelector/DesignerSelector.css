@@ -7,7 +7,7 @@
 .designer-heading {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #fd1c79;
+  color: var(--color-primary);
   margin-bottom: 0.5rem;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .designer-card {
-  background-color: #fd1c79;
+  background-color: var(--color-primary);
   border: 2px solid transparent;
   border-radius: 12px;
   padding: 1.25rem 1rem 1rem 1rem;
@@ -33,7 +33,7 @@
 }
 
 .designer-card:hover {
-  border-color: #fd1c79;
+  border-color: var(--color-primary);
   transform: translateY(-2px) scale(1.025);
   background: #f753a6;
 }

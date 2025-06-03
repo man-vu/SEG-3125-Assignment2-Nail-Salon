@@ -1,6 +1,6 @@
 .latest-news {
   padding: 4rem 0;
-  background-color: #f9fafb;
+  background-color: var(--color-bg-light);
 }
 
 .latest-news .container {
@@ -17,18 +17,18 @@
 .latest-news-header h2 {
   font-size: 1.875rem;
   font-weight: bold;
-  color: #2c3e50;
+  color: var(--color-text-dark);
 }
 
 .latest-news-header .underline {
   width: 5rem;
   height: 0.25rem;
-  background-color: #fd1c79;
+  background-color: var(--color-primary);
   margin: 1rem auto 0;
 }
 
 .latest-news-header p {
-  color: #6c757d;
+  color: var(--color-text-muted);
   margin-top: 1rem;
   max-width: 640px;
   margin-left: auto;
@@ -53,7 +53,7 @@
 }
 
 .cta-button {
-  background-color: #fd1c79;
+  background-color: var(--color-primary);
   color: white;
   padding: 0.75rem 2rem;
   border: none;
@@ -63,7 +63,7 @@
 }
 
 .cta-button:hover {
-  background-color: #e01968;
+  background-color: var(--color-primary-hover);
 }
 
 /* BlogCard styles */
@@ -88,7 +88,7 @@
   position: absolute;
   top: 1rem;
   left: 1rem;
-  background-color: #fd1c79;
+  background-color: var(--color-primary);
   color: white;
   font-size: 0.875rem;
   font-weight: 500;
@@ -104,22 +104,22 @@
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 0.75rem;
-  color: #2c3e50;
+  color: var(--color-text-dark);
   transition: color 0.3s;
   text-decoration: none;
 }
 
 .blog-card-title:hover {
-  color: #fd1c79;
+  color: var(--color-primary);
 }
 
 .blog-card-excerpt {
-  color: #6c757d;
+  color: var(--color-text-muted);
   margin-bottom: 1rem;
 }
 
 .blog-card-read-more {
-  color: #fd1c79;
+  color: var(--color-primary);
   font-weight: 500;
   text-decoration: none;
 }

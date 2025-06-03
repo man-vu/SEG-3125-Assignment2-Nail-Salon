@@ -52,12 +52,12 @@
 }
 
 .promo-button {
-  background-color: #fd1c79;
+  background-color: var(--color-primary);
   color: white;
 }
 
 .promo-button:hover {
-  background-color: #e01968;
+  background-color: var(--color-primary-hover);
 }
 
 .promotions-logos {

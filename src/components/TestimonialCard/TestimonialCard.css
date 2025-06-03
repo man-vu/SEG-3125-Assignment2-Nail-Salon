@@ -23,7 +23,7 @@
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #fd1c79;
+  border: 3px solid var(--color-primary);
 }
 
 .testimonial-card .stars {
@@ -31,7 +31,7 @@
   justify-content: center;
   gap: 4px;
   margin-bottom: 1rem;
-  color: #fd1c79;
+  color: var(--color-primary);
 }
 
 .testimonial-card blockquote {
@@ -44,7 +44,7 @@
 .testimonial-card h4 {
   font-weight: bold;
   font-size: 1.1rem;
-  color: #2c3e50;
+  color: var(--color-text-dark);
   margin-bottom: 0.25rem;
 }
 
