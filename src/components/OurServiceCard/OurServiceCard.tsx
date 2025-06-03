@@ -44,7 +44,7 @@ const OurServiceCard: React.FC<OurServiceCardProps> = ({
     <div className="our-card">
       {image && (
         <div className="our-card-img">
-          <img src={image} alt={title} />
+          <img src={image} alt={title} loading="lazy" />
         </div>
       )}
       <div className="our-card-content">

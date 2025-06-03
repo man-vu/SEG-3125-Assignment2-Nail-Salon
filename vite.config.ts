@@ -7,9 +7,9 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: "./",
   build: {
-    minify: false,
+    minify: true,
     sourcemap: false,
-    cssCodeSplit: false,
+    cssCodeSplit: true,
     target: "esnext",
     ssr: false,
   },

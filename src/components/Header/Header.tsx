@@ -31,7 +31,7 @@ const Header = () => {
     >
       <div className="header-container">
         <Link to="/" className="logo">
-          <img src={logo192} alt="Logo" className="logo-img" />
+          <img src={logo192} alt="Logo" className="logo-img" loading="lazy" />
           {headerContent.logoText}
         </Link>
         <nav className="desktop-nav">

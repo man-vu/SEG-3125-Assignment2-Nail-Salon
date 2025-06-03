@@ -29,6 +29,7 @@ const Promotions = () => {
                 src={logo}
                 alt={`Partner logo ${index + 1}`}
                 className="partner-logo"
+                loading="lazy"
               />
             ))}
           </div>

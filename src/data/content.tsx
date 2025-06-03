@@ -1,8 +1,8 @@
 import { url } from "inspector";
-import img1 from '@/assets/nail-salon/1.jpg';
-import img2 from '@/assets/nail-salon/2.jpg';
-import img3 from '@/assets/nail-salon/3.jpg';
-import img4 from '@/assets/nail-salon/4.jpg';
+import img1 from '@/assets/nail-gallery/1.webp';
+import img2 from '@/assets/nail-gallery/2.webp';
+import img3 from '@/assets/nail-gallery/3.webp';
+import img4 from '@/assets/nail-gallery/4.webp';
 
 // src/headerContent.tsx
 export const headerContent = {
