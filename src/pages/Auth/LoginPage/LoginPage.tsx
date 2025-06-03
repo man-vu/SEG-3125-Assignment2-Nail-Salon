@@ -8,13 +8,13 @@ import './LoginPage.css';
 const LoginPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const success = login(username, password);
+    const success = login(identifier, password);
     if (success) {
       navigate('/');
     } else {
@@ -27,9 +27,9 @@ const LoginPage = () => {
       <form className="login-form" onSubmit={handleSubmit}>
         <h1 className="login-title">Login</h1>
         <Input
-          placeholder="Username"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
+          placeholder="Email, Username or Phone"
+          value={identifier}
+          onChange={e => setIdentifier(e.target.value)}
         />
         <Input
           type="password"

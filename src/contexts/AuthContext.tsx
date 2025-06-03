@@ -1,17 +1,30 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface User {
-  username: string;
+  username: string
+  email: string
+  firstName: string
+  lastName: string
+  phone: string
+  language: string
 }
 
 interface AuthContextProps {
   user: User | null;
-  login: (username: string, password: string) => boolean;
-  register: (username: string, password: string) => void;
+  login: (identifier: string, password: string) => boolean
+  register: (data: User & { password: string }) => void
   logout: () => void;
 }
 
-const dummyCredentials = { username: 'demo', password: 'password' };
+const dummyCredentials = {
+  username: 'demo',
+  email: 'demo@example.com',
+  phone: '1234567890',
+  password: 'password',
+  firstName: 'Demo',
+  lastName: 'User',
+  language: 'English',
+};
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
@@ -23,21 +36,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
 
-  const login = (username: string, password: string) => {
-    if (username === dummyCredentials.username && password === dummyCredentials.password) {
-      const u = { username };
-      setUser(u);
-      localStorage.setItem('auth-user', JSON.stringify(u));
-      return true;
+  const login = (identifier: string, password: string) => {
+    if (
+      password === dummyCredentials.password &&
+      [dummyCredentials.username, dummyCredentials.email, dummyCredentials.phone].includes(identifier)
+    ) {
+      const { username, email, firstName, lastName, phone, language } = dummyCredentials
+      const u = { username, email, firstName, lastName, phone, language }
+      setUser(u)
+      localStorage.setItem('auth-user', JSON.stringify(u))
+      return true
     }
-    return false;
-  };
+    return false
+  }
 
-  const register = (username: string, password: string) => {
-    const u = { username };
-    setUser(u);
-    localStorage.setItem('auth-user', JSON.stringify(u));
-  };
+  const register = (data: User & { password: string }) => {
+    const { password: _p, ...rest } = data
+    const u: User = { ...rest }
+    setUser(u)
+    localStorage.setItem('auth-user', JSON.stringify(u))
+  }
 
   const logout = () => {
     setUser(null);
