@@ -10,7 +10,7 @@ import ReviewModal from '@/components/ReviewModal/ReviewModal';
 import SidebarMask from '@/components/SidebarMask/SidebarMask';
 import { getDummyBookings, BookingEvent } from '@/data/availableSlots';
 import { type CategoryServiceItem } from '@/data/pricing';
-import { designers as fallbackDesigners, type Designer } from '@/data/designers';
+import { type Designer } from '@/data/designers';
 import { motion, AnimatePresence } from "framer-motion";
 import { useIsMobile } from '@/lib/useIsMobile'; // import the custom hook
 import { API_BASE_URL } from '@/config';
@@ -97,7 +97,7 @@ useEffect(() => {
   }, []);
 
   const categorySource = categories;
-  const designerSource = designerData.length ? designerData : fallbackDesigners;
+  const designerSource = designerData;
 
   const goToStep = (targetStep: number) => {
     setStep(targetStep);

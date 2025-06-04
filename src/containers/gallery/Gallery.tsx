@@ -4,13 +4,8 @@ import GalleryCard from '../../components/GalleryCard/GalleryCard';
 import { galleryContent } from '@/data/content';
 import './Gallery.css';
 import GalleryModal from '@/components/GalleryModal/GalleryModal';
+import { API_BASE_URL } from '@/config';
 
-const localImages = Object.values(
-  import.meta.glob('../../assets/nail-gallery/*.webp', {
-    eager: true,
-    import: 'default',
-  })
-) as string[];
 
 const cardVariants = {
   hidden: { opacity: 0, y: 32 },
@@ -28,10 +23,10 @@ const cardVariants = {
 
 const Gallery = () => {
   const [modalIndex, setModalIndex] = useState<number | null>(null);
-  const [images, setImages] = useState<string[]>(localImages);
+  const [images, setImages] = useState<string[]>([]);
 
   useEffect(() => {
-    fetch('/api/gallery')
+    fetch(`${API_BASE_URL}/gallery`)
       .then(res => res.json())
       .then((data: { url: string }[]) => setImages(data.map(d => d.url)))
       .catch(() => {});

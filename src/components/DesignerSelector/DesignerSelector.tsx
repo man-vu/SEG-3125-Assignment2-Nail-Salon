@@ -1,4 +1,4 @@
-import { designers as fallbackDesigners, type Designer } from '@/data/designers';
+import { type Designer } from '@/data/designers';
 import './DesignerSelector.css';
 
 interface Props {
@@ -16,7 +16,7 @@ const DesignerSelector = ({ value, onChange, designers }: Props) => {
     <div className="designer-selector">
       <h3 className="designer-heading">Choose your artist</h3>
       <div className="designer-grid">
-        {(designers && designers.length ? designers : fallbackDesigners).map((designer) => (
+        {(designers ?? []).map((designer) => (
           <div
             key={designer.name}
             className={`designer-card${value === designer.name ? ' selected' : ''}`}
