@@ -1,36 +1,39 @@
-import { categoryServices } from '@/data/pricing';
+import { categoryServices, type CategoryServiceItem } from '@/data/pricing';
 import ClockIcon from "../icons/ClockIcon";
 // import './ServiceCategorySelector.css';
 
 interface Props {
   value: string;
   onChange: (category: string) => void;
+  categories?: CategoryServiceItem[];
 }
 
-const ServiceCategorySelector = ({ value, onChange }: Props) => {
+const ServiceCategorySelector = ({ value, onChange, categories }: Props) => {
   const handleSelect = (title: string) => {
     onChange(title); // Only pass the string title!
   };
 
+  const data = categories && categories.length ? categories : categoryServices;
+
   const getPricingInfo = (title: string) =>
-    categoryServices.find((s) => s.title === title);
+    data.find((s) => s.title === title || s.name === title);
 
   return (
     <div className="service-selector">
       <h3 className="service-selector-heading">Select a category service</h3>
 
       <div className="service-selector-grid">
-        {categoryServices.map((service) => {
-          const pricing = getPricingInfo(service.title);
+        {data.map((service) => {
+          const pricing = getPricingInfo(service.title || service.name);
 
           return (
             <div
-              key={service.title}
-              className={`service-selector-card ${value === service.title ? 'selected' : ''}`}
-              onClick={() => handleSelect(service.title)}
+              key={service.title || service.name}
+              className={`service-selector-card ${value === (service.title || service.name) ? 'selected' : ''}`}
+              onClick={() => handleSelect(service.title || service.name)}
             >
               <h4 className="service-selector-title">
-                {service.title} - ${pricing?.cost}
+                {(service.title || service.name)} - ${pricing?.cost}
               </h4>
               <p className="service-selector-description">{service.description}</p>
 
