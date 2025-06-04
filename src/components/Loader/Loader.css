@@ -1,0 +1,30 @@
+.loader-backdrop {
+  position: fixed;
+  inset: 0; /* shorthand for top: 0; right: 0; bottom: 0; left: 0; */
+  z-index: 9999; /* very high to ensure it's on top of everything */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.95); /* semi-transparent white (optional, for a light blur effect) */
+}
+
+.loader-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.loader-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 12px #ab90e6aa);
+}
+
+.loader-text {
+  font-size: 1.3rem;
+  color: var(--color-primary, #9363eb);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}

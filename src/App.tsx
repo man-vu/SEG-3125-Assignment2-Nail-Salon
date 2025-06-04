@@ -8,7 +8,8 @@ import About from './containers/about/About';
 import Testimonials from './containers/testimonials/Testimonials';
 import Gallery from './containers/gallery/Gallery';
 import GiftCards from './containers/gift-cards/GiftCards';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
+import Loader from './components/Loader/Loader';
 
 const BookingPage = lazy(() => import('./pages/BookingPage/BookingPage'));
 const ServicesPage = lazy(() => import('./pages/ServicesPage/ServicesPage'));
@@ -24,6 +25,15 @@ const pageTransition = {
   exit: { opacity: 0, y: -30 },
   transition: { duration: 0.4 },
 };
+
+// ScrollToTop component
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -116,10 +126,11 @@ function AnimatedRoutes() {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow">
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loader />}>
             <AnimatedRoutes />
           </Suspense>
         </main>

@@ -1,3 +1,7 @@
+html {
+  overflow: visible !important;
+}
+
 .header {
   position: sticky;
   top: 0;
@@ -101,10 +105,17 @@
 }
 
 .auth-links {
-  display: flex;
+  display: none; /* Hide by default (mobile) */
   align-items: center;
   gap: 0.75rem;
 }
+
+@media (min-width: 768px) {
+  .auth-links {
+    display: flex; /* Only show on desktop */
+  }
+}
+
 
 .icon-gap {
   margin-right: 0.25rem;
