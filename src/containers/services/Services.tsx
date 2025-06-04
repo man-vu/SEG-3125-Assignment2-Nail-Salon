@@ -4,13 +4,14 @@ import { Button } from '@/components/ui/button';
 import './Services.css';
 import { servicesContent } from '@/data/content';
 import { type CategoryServiceItem } from '@/data/pricing';
+import { API_BASE_URL } from '@/config';
 import { useEffect, useState } from 'react';
 
 const ServicesSection = () => {
   const [categories, setCategories] = useState<CategoryServiceItem[]>([]);
 
   useEffect(() => {
-    fetch('/api/categories')
+    fetch(`${API_BASE_URL}/categories`)
       .then(res => res.json())
       .then(setCategories)
       .catch(() => {});

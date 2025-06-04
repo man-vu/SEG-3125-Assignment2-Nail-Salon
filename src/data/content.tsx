@@ -1,4 +1,3 @@
-import { url } from "inspector";
 import img1 from '@/assets/nail-salon/1.jpg';
 import img2 from '@/assets/nail-salon/2.jpg';
 import img3 from '@/assets/nail-salon/3.jpg';
@@ -179,80 +178,6 @@ export const nailCareContent = {
 // src/data/testimonialsContent.tsx
 export const testimonialsContent = {
   heading: 'What People Are Saying',
-  testimonials: [
-    {
-      id: 1,
-      name: 'Jennifer Smith',
-      role: 'Regular Client',
-      image: 'https://picsum.photos/id/64/200/200',
-      quote:
-        "I've been coming to Dreamy Nail & Beauty for over a year now and I'm always impressed with the quality of service. The staff is professional, friendly, and incredibly talented. My nails have never looked better!",
-      rating: 5,
-    },
-    {
-      id: 2,
-      name: 'Michael Johnson',
-      role: 'First-time Client',
-      image: 'https://picsum.photos/id/91/200/200',
-      quote:
-        "As someone who was new to professional nail care, I was a bit nervous. But the team at Dreamy Nail & Beauty made me feel comfortable and explained everything. The results were fantastic and I'll definitely be back!",
-      rating: 5,
-    },
-    {
-      id: 3,
-      name: 'Sarah Williams',
-      role: 'Monthly Client',
-      image: 'https://picsum.photos/id/26/200/200',
-      quote:
-        'Dreamy Nail & Beauty offers the perfect combination of relaxation and beauty. Their nail art designs are creative and always receive compliments. The salon is clean, modern, and the staff is always welcoming.',
-      rating: 5,
-    },
-    {
-      id: 4,
-      name: 'Emily Davis',
-      role: 'Frequent Visitor',
-      image: 'https://picsum.photos/id/1027/200/200',
-      quote:
-        'From the moment I walk in, I feel pampered. The ambiance is lovely and I always leave with beautiful nails and a big smile.',
-      rating: 5,
-    },
-    {
-      id: 5,
-      name: 'David Lee',
-      role: 'Gift Card Recipient',
-      image: 'https://picsum.photos/id/1011/200/200',
-      quote:
-        "I received a gift card for Dreamy Nail & Beauty and didn't expect much, but I was blown away. The attention to detail and relaxing environment was top-tier.",
-      rating: 4,
-    },
-    {
-      id: 6,
-      name: 'Rachel Green',
-      role: 'Spa Enthusiast',
-      image: 'https://picsum.photos/id/1025/200/200',
-      quote:
-        'One of the best salons in the city. I’ve been to many, but none match the quality and style of Dreamy Nail & Beauty.',
-      rating: 5,
-    },
-    {
-      id: 7,
-      name: 'Olivia Brown',
-      role: 'Loyal Customer',
-      image: 'https://picsum.photos/id/1035/200/200',
-      quote:
-        'Highly recommend! Their designs are trendy and elegant. Always satisfied with the final look.',
-      rating: 5,
-    },
-    {
-      id: 8,
-      name: 'Sophia Wilson',
-      role: 'Walk-in Client',
-      image: 'https://picsum.photos/id/1044/200/200',
-      quote:
-        'I walked in without an appointment and they still treated me like royalty. Great service and great people.',
-      rating: 4,
-    },
-  ],
 };
 
 

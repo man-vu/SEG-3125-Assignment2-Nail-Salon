@@ -7,6 +7,7 @@ import './Testimonials.css';
 
 import TestimonialCard from '@/components/TestimonialCard/TestimonialCard';
 import { testimonialsContent } from '@/data/content';
+import { API_BASE_URL } from '@/config';
 import { useEffect, useState } from 'react';
 
 export interface Review {
@@ -22,13 +23,13 @@ const TestimonialsSwiper = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
-    fetch('/api/reviews')
+    fetch(`${API_BASE_URL}/reviews`)
       .then(res => res.json())
       .then(setReviews)
       .catch(() => setReviews([]));
   }, []);
 
-  const data = reviews.length ? reviews : testimonialsContent.testimonials;
+  const data = reviews;
 
   return (
     <section id='testimonials' className="testimonials-section">
