@@ -5,7 +5,7 @@
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-  background: #fff;
+  background: var(--color-card-bg);
 }
 
 .booking-header {
@@ -126,7 +126,7 @@
 }
 
 .modal-content {
-  background: #fff;
+  background: var(--color-card-bg);
   padding: 2rem 2.5rem;
   border-radius: 14px;
   min-width: 340px;

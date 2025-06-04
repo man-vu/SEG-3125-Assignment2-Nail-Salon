@@ -1,6 +1,6 @@
 .contact-bg {
   min-height: 100vh;
-  background: #fff1e6;
+  background: hsl(var(--background));
   color: #fff;
   font-family: 'Inter', Arial, sans-serif;
   display: flex;

@@ -1,6 +1,6 @@
 .team-bg {
   min-height: 100vh;
-  background: #fff1e6;
+  background: hsl(var(--background));
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
 }
@@ -13,7 +13,7 @@
 }
 
 .team-hero {
-  background: #fff;
+  background: var(--color-card-bg);
   border-radius: 18px;
   box-shadow: 0 4px 18px rgba(32,48,60,0.08);
   padding: 2rem 1rem;

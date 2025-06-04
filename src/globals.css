@@ -28,6 +28,7 @@
     --color-text-dark: #2c3e50;
     --color-text-muted: #6c757d;
     --color-bg-light: #f9fafb;
+    --color-card-bg: #ffffff;
     --radius: 0.5rem;
   }
 
@@ -51,6 +52,10 @@
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
     --ring: 216 34% 17%;
+    --color-text-dark: #f3f4f6;
+    --color-text-muted: #9ca3af;
+    --color-bg-light: #1f2937;
+    --color-card-bg: #1e293b;
   }
 }
 

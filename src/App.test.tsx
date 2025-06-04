@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App.tsx'
 import { AuthProvider } from './contexts/AuthContext'
+import { ThemeProvider } from './contexts/ThemeContext'
 
 jest.mock('swiper/react', () => ({
   Swiper: ({ children }: any) => <div>{children}</div>,
@@ -26,9 +27,11 @@ jest.mock('./containers/footer/Footer', () => () => <div>Footer</div>);
 
 test('renders header', () => {
   render(
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </ThemeProvider>
   )
   expect(screen.getByText(/REAMY NAIL & BEAUTY/i)).toBeInTheDocument()
 })

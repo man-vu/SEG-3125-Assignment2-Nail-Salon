@@ -1,5 +1,5 @@
 .our-card {
-  background: #fff;
+  background: var(--color-card-bg);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 10px 0 rgba(32,48,60,.08);

@@ -1,5 +1,5 @@
 .teammate-card {
-  background: #fff;
+  background: var(--color-card-bg);
   border-radius: 20px;
   box-shadow: 0 6px 24px rgba(32,48,60,0.09);
   display: flex;
