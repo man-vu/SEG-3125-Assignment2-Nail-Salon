@@ -17,14 +17,11 @@ const ServicesSection = () => {
       .catch(() => {});
   }, []);
 
-  const items =
-    categories.length > 0
-      ? categories.map(cat => ({
-          title: cat.name || cat.title,
-          image: cat.image,
-          description: cat.description,
-        }))
-      : servicesContent.items;
+  const items = categories.map(cat => ({
+    title: cat.name || cat.title,
+    image: cat.image,
+    description: cat.shortDescription ?? cat.description,
+  }));
 
   return (
     <section className="services-section">

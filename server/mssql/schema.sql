@@ -30,6 +30,7 @@ CREATE TABLE ServiceCategories (
   name NVARCHAR(100) NOT NULL UNIQUE,
   image NVARCHAR(255) NOT NULL,
   description NVARCHAR(255) NOT NULL,
+  shortDescription NVARCHAR(255) NOT NULL,
   cost DECIMAL(10,2) NOT NULL,
   currency NVARCHAR(10) NOT NULL,
   durationMin INT NOT NULL,
@@ -110,31 +111,37 @@ GO
 
 -- Seed data for Service Categories
 INSERT INTO ServiceCategories
-  (name, image, description, cost, currency, durationMin, durationMax) VALUES
+  (name, image, description, shortDescription, cost, currency, durationMin, durationMax) VALUES
 ('Manicure',
- 'https://phoenixnailsandbeautyottawa.com/photos/services/manicure.jpg',
- 'Treat your hands to the care they deserve with our professional manicure service. We shape, buff, and polish your nails to perfection, complete with cuticle care and a relaxing hand massage.',
- 35, 'CAD', 30, 45),
+'https://phoenixnailsandbeautyottawa.com/photos/services/manicure.jpg',
+'Treat your hands to the care they deserve with our professional manicure service. We shape, buff, and polish your nails to perfection, complete with cuticle care and a relaxing hand massage.',
+'Professional nail care for your hands',
+35, 'CAD', 30, 45),
 ('Pedicure',
- 'https://phoenixnailsandbeautyottawa.com/photos/services/pedicure.jpg',
- 'Rejuvenate your feet with a deep-cleaning pedicure that includes nail trimming, exfoliation, cuticle treatment, and a soothing massage to leave your feet soft, smooth, and refreshed.',
- 45, 'CAD', 40, 60),
+'https://phoenixnailsandbeautyottawa.com/photos/services/pedicure.jpg',
+'Rejuvenate your feet with a deep-cleaning pedicure that includes nail trimming, exfoliation, cuticle treatment, and a soothing massage to leave your feet soft, smooth, and refreshed.',
+'Relaxing foot care treatments',
+45, 'CAD', 40, 60),
 ('Artificial Nails',
- 'https://phoenixnailsandbeautyottawa.com/photos/services/artificial-nail.jpg',
- 'Enhance your natural nails with durable and stylish acrylic, gel, or dip powder enhancements. Ideal for lengthening nails or achieving that flawless, chip-free finish.',
- 60, 'CAD', 60, 90),
+'https://phoenixnailsandbeautyottawa.com/photos/services/artificial-nail.jpg',
+'Enhance your natural nails with durable and stylish acrylic, gel, or dip powder enhancements. Ideal for lengthening nails or achieving that flawless, chip-free finish.',
+'Acrylic, gel, and dip powder options',
+60, 'CAD', 60, 90),
 ('Nail Art',
- 'https://phoenixnailsandbeautyottawa.com/photos/services/nail-art.jpg',
- 'Express your style with custom nail art. From minimalist patterns to bold, intricate designs, our artists will bring your creative vision to life on your fingertips.',
- 25, 'CAD', 20, 40),
+'https://phoenixnailsandbeautyottawa.com/photos/services/nail-art.jpg',
+'Express your style with custom nail art. From minimalist patterns to bold, intricate designs, our artists will bring your creative vision to life on your fingertips.',
+'Creative designs for your nails',
+25, 'CAD', 20, 40),
 ('Waxing',
- 'https://phoenixnailsandbeautyottawa.com/photos/services/waxing.jpg',
- 'Smooth skin is just a session away. We offer facial and body waxing for quick, effective, and long-lasting hair removal using skin-friendly products and hygienic practices.',
- 30, 'CAD', 15, 30),
+'https://phoenixnailsandbeautyottawa.com/photos/services/waxing.jpg',
+'Smooth skin is just a session away. We offer facial and body waxing for quick, effective, and long-lasting hair removal using skin-friendly products and hygienic practices.',
+'Hair removal services',
+30, 'CAD', 15, 30),
 ('Kids Services',
- 'https://phoenixnailsandbeautyottawa.com/photos/services/kid.jpg',
- 'Designed especially for our young guests, this gentle service includes light nail shaping, polishing, and optional nail art — a fun and safe pampering session for children.',
- 20, 'CAD', 20, 30);
+'https://phoenixnailsandbeautyottawa.com/photos/services/kid.jpg',
+'Designed especially for our young guests, this gentle service includes light nail shaping, polishing, and optional nail art — a fun and safe pampering session for children.',
+'Nail care for the little ones',
+20, 'CAD', 20, 30);
 GO
 
 -- Seed data for Services
@@ -179,6 +186,7 @@ INSERT INTO Services (name, description, price, duration, image, categoryId) VAL
 GO
 
 -- Seed data for Customer Reviews
+SET IDENTITY_INSERT CustomerReviews ON;
 INSERT INTO CustomerReviews (id, name, role, image, quote, rating) VALUES
   (1, 'Jennifer Smith', 'Regular Client', 'https://picsum.photos/id/64/200/200', 'I''ve been coming to Dreamy Nail & Beauty for over a year now and I''m always impressed with the quality of service. The staff is professional, friendly, and incredibly talented. My nails have never looked better!', 5),
   (2, 'Michael Johnson', 'First-time Client', 'https://picsum.photos/id/91/200/200', 'As someone who was new to professional nail care, I was a bit nervous. But the team at Dreamy Nail & Beauty made me feel comfortable and explained everything. The results were fantastic and I''ll definitely be back!', 5),
@@ -188,9 +196,9 @@ INSERT INTO CustomerReviews (id, name, role, image, quote, rating) VALUES
   (6, 'Rachel Green', 'Spa Enthusiast', 'https://picsum.photos/id/1025/200/200', 'One of the best salons in the city. I’ve been to many, but none match the quality and style of Dreamy Nail & Beauty.', 5),
   (7, 'Olivia Brown', 'Loyal Customer', 'https://picsum.photos/id/1035/200/200', 'Highly recommend! Their designs are trendy and elegant. Always satisfied with the final look.', 5),
   (8, 'Sophia Wilson', 'Walk-in Client', 'https://picsum.photos/id/1044/200/200', 'I walked in without an appointment and they still treated me like royalty. Great service and great people.', 4);
-GO
-
+SET IDENTITY_INSERT CustomerReviews OFF;
 -- Seed data for Gallery Images
+SET IDENTITY_INSERT GalleryImages ON;
 INSERT INTO GalleryImages (id, url, caption) VALUES
   (1, '/assets/nail-gallery/1.webp', NULL),
   (2, '/assets/nail-gallery/2.webp', NULL),
@@ -216,4 +224,5 @@ INSERT INTO GalleryImages (id, url, caption) VALUES
   (22, '/assets/nail-gallery/22.webp', NULL),
   (23, '/assets/nail-gallery/23.webp', NULL),
   (24, '/assets/nail-gallery/24.webp', NULL);
+SET IDENTITY_INSERT GalleryImages OFF;
 GO
