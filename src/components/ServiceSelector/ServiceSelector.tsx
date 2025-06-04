@@ -1,11 +1,11 @@
 // src/components/ServiceSelector/ServiceSelector.tsx
-import { categoryServices, type CategoryServiceItem } from '@/data/pricing';
+import { type CategoryServiceItem } from '@/data/pricing';
 import './ServiceSelector.css';
 import ClockIcon from "../icons/ClockIcon";
 
 interface Props {
   value: string;
-  category: string;
+  category: number;
   onChange: (e: React.ChangeEvent<HTMLSelectElement> | string) => void;
   categories?: CategoryServiceItem[];
 }
@@ -15,18 +15,19 @@ const ServiceSelector = ({ value, category, onChange, categories }: Props) => {
     onChange({ target: { name: 'service', value: title } } as any);
   };
 
-  const data = categories && categories.length ? categories : categoryServices;
-  const selectedCategory = data.find(cat => (cat.title || cat.name) === category);
+  const data = categories;
+
+  const selectedCategory = data.find(cat => cat.id === category);
 
   return (
     <div className="service-selector">
       <h3 className="service-selector-heading">Select a service</h3>
 
-      {!selectedCategory || !selectedCategory.services || selectedCategory.services.length === 0 ? (
+      {!selectedCategory || !selectedCategory.Services || selectedCategory.Services.length === 0 ? (
         <p className="service-selector-subtext">Please select a service category with available services.</p>
       ) : (
         <div className="service-selector-grid">
-          {selectedCategory.services.map((service) => (
+          {selectedCategory.Services.map((service) => (
             <div
               key={service.title || service.name}
               className={`service-selector-card ${value === (service.title || service.name) ? 'selected' : ''}`}

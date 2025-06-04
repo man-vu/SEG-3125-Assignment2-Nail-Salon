@@ -2,7 +2,7 @@ import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import './ServicesPage.css';
 import OurServiceCard from '@/components/OurServiceCard/OurServiceCard';
 import { Button } from '@/components/ui/button';
-import { categoryServices, type CategoryServiceItem } from '@/data/pricing';
+import { type CategoryServiceItem } from '@/data/pricing';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -63,20 +63,19 @@ const ServicesPage = () => {
   const [tab, setTab] = useState('');
 
   useEffect(() => {
-    fetch('/api/categories')
+    fetch('http://localhost:3001/api/categories')
       .then(res => res.json())
       .then(setData)
       .catch(() => setData([]));
   }, []);
 
-  const categoriesList = (data.length ? data : categoryServices).map(cat => ({
-    label: cat.title.toUpperCase(),
-    value: cat.title.toLowerCase(),
-  }));
+  const categoriesList = data;
+
+  debugger
 
   useEffect(() => {
     if (!tab && categoriesList.length) {
-      setTab(categoriesList[0].value);
+      setTab(categoriesList[0].title.toLowerCase());
     }
   }, [categoriesList, tab]);
 
@@ -95,7 +94,7 @@ const ServicesPage = () => {
         <ServicesTabs categories={categoriesList} value={tab} onChange={setTab} />
         <AnimatePresence mode="wait">
           {(() => {
-            const source = data.length ? data : categoryServices;
+            const source = data;
             const activeCategory = source.find(
               (cat) => cat.title.toLowerCase() === tab
             );
