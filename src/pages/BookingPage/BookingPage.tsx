@@ -9,6 +9,8 @@ import StepProgressBar from '@/components/StepProgressBar/StepProgressBar';
 import ReviewModal from '@/components/ReviewModal/ReviewModal';
 import SidebarMask from '@/components/SidebarMask/SidebarMask';
 import { getDummyBookings, BookingEvent } from '@/data/availableSlots';
+import { type CategoryServiceItem } from '@/data/pricing';
+import { designers as fallbackDesigners, type Designer } from '@/data/designers';
 import { motion, AnimatePresence } from "framer-motion";
 import { useIsMobile } from '@/lib/useIsMobile'; // import the custom hook
 
@@ -24,8 +26,11 @@ const BookingPage = () => {
   const location = useLocation();
   const navState = location.state || {};
 
+  const [categories, setCategories] = useState<CategoryServiceItem[]>([]);
+  const [designerData, setDesignerData] = useState<Designer[]>([]);
+
   const [formData, setFormData] = useState({
-    category: '',
+    category: null as number | null,
     service: '',
     designer: '',
     start: null as Date | null,
@@ -36,11 +41,45 @@ const BookingPage = () => {
   const [showReview, setShowReview] = useState(false);
   const isMobile = useIsMobile(); // <-- use the custom hook
 
+useEffect(() => {
+  console.log('Fetching categories...');
+  fetch('http://localhost:3001/api/categories')
+    .then(res => {
+      
+      console.log('Categories response status:', res.status);
+      return res.json();
+    })
+    .then(data => {
+      
+      console.log('Categories data:', data);
+      setCategories(data);
+    })
+    .catch(error => {
+      console.error('Error fetching categories:', error);
+      setCategories([]);
+    });
+
+  console.log('Fetching designers...');
+  fetch('http://localhost:3001/api/designers')
+    .then(res => {
+      console.log('Designers response status:', res.status);
+      return res.json();
+    })
+    .then(data => {
+      console.log('Designers data:', data);
+      setDesignerData(data);
+    })
+    .catch(error => {
+      console.error('Error fetching designers:', error);
+      setDesignerData([]);
+    });
+}, []);
+
   useEffect(() => {
     if (navState.category) {
       setFormData(prev => ({
         ...prev,
-        category: navState.category,
+        category: typeof navState.category === 'number' ? navState.category : parseInt(navState.category, 10),
         service: navState.service || '',
         designer: '',
         start: null,
@@ -56,10 +95,13 @@ const BookingPage = () => {
     setEvents(getDummyBookings());
   }, []);
 
+  const categorySource = categories;
+  const designerSource = designerData.length ? designerData : fallbackDesigners;
+
   const goToStep = (targetStep: number) => {
     setStep(targetStep);
     setFormData(prev => {
-      if (targetStep === 0) return { ...prev, category: '', service: '', designer: '', start: null, end: null };
+      if (targetStep === 0) return { ...prev, category: null, service: '', designer: '', start: null, end: null };
       if (targetStep === 1) return { ...prev, service: '', designer: '', start: null, end: null };
       if (targetStep === 2) return { ...prev, designer: '', start: null, end: null };
       if (targetStep === 3) return { ...prev, start: null, end: null };
@@ -81,8 +123,8 @@ const BookingPage = () => {
   };
   const handleBack = () => { if (step > 0) goToStep(step - 1); };
 
-  const handleCategoryChange = (cat: string) => {
-    setFormData(prev => ({ ...prev, category: cat, service: '', designer: '', start: null, end: null }));
+  const handleCategoryChange = (catId: number) => {
+    setFormData(prev => ({ ...prev, category: catId, service: '', designer: '', start: null, end: null }));
     setStep(1);
   };
   const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement> | string) => {
@@ -113,7 +155,7 @@ const BookingPage = () => {
     setShowReview(false);
     alert(`Appointment booked on ${formData.start?.toLocaleString()}`);
     setStep(0);
-    setFormData({ category: '', service: '', designer: '', start: null, end: null });
+    setFormData({ category: null, service: '', designer: '', start: null, end: null });
   };
 
   const handleReviewClose = () => {
@@ -150,7 +192,7 @@ const BookingPage = () => {
                       exit={{ opacity: 0, x: 32 }}
                       transition={{ duration: 0.24 }}
                     >
-                      <ServiceCategorySelector value={formData.category} onChange={handleCategoryChange} />
+                      <ServiceCategorySelector categories={categorySource} value={formData.category} onChange={handleCategoryChange} />
                     </motion.div>
                   )}
                   {step === 1 && (
@@ -161,7 +203,7 @@ const BookingPage = () => {
                       exit={{ opacity: 0, x: 32 }}
                       transition={{ duration: 0.24 }}
                     >
-                      <ServiceSelector value={formData.service} category={formData.category} onChange={handleServiceChange} />
+                      <ServiceSelector categories={categorySource} value={formData.service} category={formData.category} onChange={handleServiceChange} />
                     </motion.div>
                   )}
                   {step === 2 && (
@@ -172,7 +214,7 @@ const BookingPage = () => {
                       exit={{ opacity: 0, x: 32 }}
                       transition={{ duration: 0.24 }}
                     >
-                      <DesignerSelector value={formData.designer} onChange={handleDesignerChange} />
+                      <DesignerSelector designers={designerSource} value={formData.designer} onChange={handleDesignerChange} />
                     </motion.div>
                   )}
                   {step >= 3 && (
@@ -183,9 +225,9 @@ const BookingPage = () => {
                       exit={{ opacity: 0, x: 32 }}
                       transition={{ duration: 0.24 }}
                     >
-                      <ServiceCategorySelector value={formData.category} onChange={() => { }} />
-                      <ServiceSelector value={formData.service} category={formData.category} onChange={() => { }} />
-                      <DesignerSelector value={formData.designer} onChange={() => { }} />
+                      <ServiceCategorySelector categories={categorySource} value={formData.category} onChange={() => { }} />
+                      <ServiceSelector categories={categorySource} value={formData.service} category={formData.category} onChange={() => { }} />
+                      <DesignerSelector designers={designerSource} value={formData.designer} onChange={() => { }} />
                       <SidebarMask text="Your selections are locked in. To change, go back." />
                     </motion.div>
                   )}

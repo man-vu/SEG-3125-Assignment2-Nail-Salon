@@ -7,8 +7,29 @@ import './Testimonials.css';
 
 import TestimonialCard from '@/components/TestimonialCard/TestimonialCard';
 import { testimonialsContent } from '@/data/content';
+import { useEffect, useState } from 'react';
+
+export interface Review {
+  id: number;
+  name: string;
+  role: string;
+  image: string;
+  quote: string;
+  rating: number;
+}
 
 const TestimonialsSwiper = () => {
+  const [reviews, setReviews] = useState<Review[]>([]);
+
+  useEffect(() => {
+    fetch('/api/reviews')
+      .then(res => res.json())
+      .then(setReviews)
+      .catch(() => setReviews([]));
+  }, []);
+
+  const data = reviews.length ? reviews : testimonialsContent.testimonials;
+
   return (
     <section id='testimonials' className="testimonials-section">
       <div className="testimonials-container">
@@ -34,7 +55,7 @@ const TestimonialsSwiper = () => {
           modules={[EffectCoverflow, Autoplay]}
           className="testimonial-swiper"
         >
-          {testimonialsContent.testimonials.map((t) => (
+          {data.map((t) => (
             <SwiperSlide key={t.id} className="swiper-slide-custom">
               <TestimonialCard {...t} />
             </SwiperSlide>

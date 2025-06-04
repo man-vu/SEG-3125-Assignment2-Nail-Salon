@@ -1,12 +1,13 @@
-import { designers } from '@/data/designers';
+import { designers as fallbackDesigners, type Designer } from '@/data/designers';
 import './DesignerSelector.css';
 
 interface Props {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement> | string) => void;
+  designers?: Designer[];
 }
 
-const DesignerSelector = ({ value, onChange }: Props) => {
+const DesignerSelector = ({ value, onChange, designers }: Props) => {
   const handleSelect = (name: string) => {
     onChange({ target: { name: 'designer', value: name } } as any);
   };
@@ -15,7 +16,7 @@ const DesignerSelector = ({ value, onChange }: Props) => {
     <div className="designer-selector">
       <h3 className="designer-heading">Choose your artist</h3>
       <div className="designer-grid">
-        {designers.map((designer) => (
+        {(designers && designers.length ? designers : fallbackDesigners).map((designer) => (
           <div
             key={designer.name}
             className={`designer-card${value === designer.name ? ' selected' : ''}`}

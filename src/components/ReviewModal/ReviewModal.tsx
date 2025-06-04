@@ -1,12 +1,13 @@
 import React from 'react';
 import { Button } from '../ui/button';
+import { CategoryServiceItem } from '@/data/pricing';
 
 interface ReviewModalProps {
   open: boolean;
   onClose: () => void;
   onConfirm: (e: React.FormEvent) => void;
   formData: {
-    category: string;
+    category: CategoryServiceItem;
     service: string;
     designer: string;
     start: Date | null;
@@ -22,7 +23,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ open, onClose, onConfirm, for
       <div className="modal-content">
         <h3>Review & Confirm</h3>
         <ul>
-          <li><strong>Category:</strong> {formData.category}</li>
+          <li><strong>Category:</strong> {formData.category.title}</li>
           <li><strong>Service:</strong> {formData.service}</li>
           <li><strong>Artist:</strong> {formData.designer}</li>
           <li>
