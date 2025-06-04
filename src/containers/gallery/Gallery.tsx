@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { DialogTitle, DialogDescription, Dialog, DialogContent } from '../../components/ui/dialog';
 import GalleryCard from '../../components/GalleryCard/GalleryCard';
 import { galleryContent } from '@/data/content';
 import './Gallery.css';
-import VisuallyHidden from '../../components/ui/VisuallyHidden';
+import GalleryModal from '@/components/GalleryModal/GalleryModal';
 
 const images = Object.values(
   import.meta.glob('../../assets/nail-gallery/*.webp', {
@@ -28,9 +27,7 @@ const cardVariants = {
 };
 
 const Gallery = () => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const handleOpen = (image: string) => setSelectedImage(image);
-  const handleClose = () => setSelectedImage(null);
+  const [modalIndex, setModalIndex] = useState<number | null>(null);
 
   return (
     <section id='gallery' className="gallery-section">
@@ -55,55 +52,23 @@ const Gallery = () => {
                 <GalleryCard
                   src={src}
                   alt={`Nail design ${index + 1}`}
-                  onClick={() => handleOpen(src)}
+                  onClick={() => setModalIndex(index)}   
                 />
               </motion.div>
             ))}
           </AnimatePresence>
         </div>
       </div>
-
       <AnimatePresence>
-        {selectedImage && (
-          <Dialog open={!!selectedImage} onOpenChange={handleClose}>
-<DialogContent className="gallery-dialog">
-  <div>
-    <DialogTitle>
-      <VisuallyHidden>Gallery image preview</VisuallyHidden>
-    </DialogTitle>
-    <DialogDescription>
-      <VisuallyHidden>
-        This is an enlarged preview of the selected nail design image.
-      </VisuallyHidden>
-    </DialogDescription>
-    <motion.div
-      key={selectedImage}
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.23 }}
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 0,
-        background: "transparent",
-        boxShadow: "none",
-      }}
-    >
-      <img
-        src={selectedImage}
-        alt="Enlarged nail design"
-        style={{ maxWidth: "90vw", maxHeight: "80vh", borderRadius: "12px" }}
-        loading="lazy"
-      />
-    </motion.div>
-  </div>
-</DialogContent>
-
-
-
-          </Dialog>
+        {modalIndex !== null && (
+          <GalleryModal
+            images={images}
+            index={modalIndex}
+            setIndex={setModalIndex}
+            onClose={() => setModalIndex(null)}
+            onPrev={() => setModalIndex(i => (i !== null && i > 0 ? i - 1 : i))}
+            onNext={() => setModalIndex(i => (i !== null && i < images.length - 1 ? i + 1 : i))}
+          />
         )}
       </AnimatePresence>
     </section>
