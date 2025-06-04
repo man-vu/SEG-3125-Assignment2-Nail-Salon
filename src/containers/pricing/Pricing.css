@@ -2,7 +2,7 @@
 /* SECTION */
 .pricing-section {
   padding: 4rem 0;
-  background-color: white;
+  background-color: var(--color-card-bg);
 }
 
 .pricing-container {
@@ -52,7 +52,7 @@
 
 /* CARD */
 .price-card {
-  background: white;
+  background: var(--color-card-bg);
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);

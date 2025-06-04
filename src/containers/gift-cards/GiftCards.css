@@ -83,7 +83,7 @@
 }
 
 .promo-button {
-  background-color: white;
+  background-color: var(--color-card-bg);
   color: var(--color-primary);
   cursor: pointer;
 }

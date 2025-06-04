@@ -97,7 +97,7 @@
 }
 
 .hero-dot.active {
-  background-color: white;
+  background-color: var(--color-card-bg);
   transform: scale(1.25);
 }
 

@@ -1,6 +1,6 @@
 .skilled-section {
   padding: 5rem 0;
-  background-color: white;
+  background-color: var(--color-card-bg);
 }
 
 .skilled-container {

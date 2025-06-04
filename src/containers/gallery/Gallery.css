@@ -1,6 +1,6 @@
 .gallery-section {
   padding: 4rem 0;
-  background-color: #fff1e6;
+  background-color: hsl(var(--background));
 }
 
 .gallery-container {

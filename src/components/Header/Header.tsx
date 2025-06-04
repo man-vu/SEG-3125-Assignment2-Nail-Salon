@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown, LogIn, UserPlus, LogOut } from "lucide-react";
+import { Menu, X, ChevronDown, LogIn, UserPlus, LogOut, Sun, Moon } from "lucide-react";
 import { Button } from "../ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 import "./Header.css";
 import { headerContent } from "@/data/content";
+import { useTheme } from "@/contexts/ThemeContext";
 import logo192 from '@/assets/icons/logo192.png';
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -14,6 +15,7 @@ const Header = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) =>
@@ -81,6 +83,15 @@ const Header = () => {
               </Link>
             </>
           )}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+          </Button>
           <div className="book-button-desktop">
             <Link to="/booking"><Button className="book-button">{headerContent.bookNowButton}</Button></Link>
           </div>
@@ -143,6 +154,15 @@ const Header = () => {
             )}
             <div className="mobile-book-button">
               <Link to="/booking"><Button className="book-button">{headerContent.bookNowButton}</Button></Link>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="theme-toggle ml-2"
+                onClick={() => { toggleTheme(); }}
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              </Button>
             </div>
           </motion.div>
         )}
