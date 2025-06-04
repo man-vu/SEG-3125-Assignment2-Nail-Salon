@@ -29,7 +29,8 @@ If you prefer to use Microsoft SQL Server, run the SQL script at `server/mssql/s
 sqlcmd -S <your-server> -i server/mssql/schema.sql
 ```
 
-This creates the same tables as the Prisma schema.
+This creates the same tables as the Prisma schema and inserts sample data for
+designers, service categories and services.
 
 ## Project Structure
 
