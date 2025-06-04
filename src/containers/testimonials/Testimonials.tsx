@@ -12,8 +12,8 @@ import { useEffect, useState } from 'react';
 export interface Review {
   id: number;
   name: string;
-  role?: string;
-  image?: string;
+  role: string;
+  image: string;
   quote: string;
   rating: number;
 }
