@@ -50,6 +50,7 @@ model ServiceCategories {
   name        String     @unique(map: "UQ__ServiceC__72E12F1BCE1FB427") @db.NVarChar(100)
   image       String     @db.NVarChar(255)
   description String     @db.NVarChar(255)
+  shortDescription String? @db.NVarChar(255)
   cost        Decimal    @db.Decimal(10, 2)
   currency    String     @db.NVarChar(10)
   durationMin Int

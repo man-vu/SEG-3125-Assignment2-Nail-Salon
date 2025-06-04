@@ -6,6 +6,7 @@ export interface CategoryServiceItem {
   name?: string;
   image: string;
   description: string;
+  shortDescription?: string;
   // Static field
   cost?: number;
   // Backend field

@@ -27,38 +27,6 @@ export const servicesContent = {
   heading: "Our Services",
   subtext: "We offer a wide range of nail and beauty services to help you look and feel your best.",
   cta: "View All Services",
-  items: [
-    {
-      title: "Manicure",
-      image: "https://phoenixnailsandbeautyottawa.com/photos/services/manicure.jpg",
-      description: "Professional nail care for your hands",
-    },
-    {
-      title: "Pedicure",
-      image: "https://phoenixnailsandbeautyottawa.com/photos/services/pedicure.jpg",
-      description: "Relaxing foot care treatments",
-    },
-    {
-      title: "Artificial Nails",
-      image: "https://phoenixnailsandbeautyottawa.com/photos/services/artificial-nail.jpg",
-      description: "Acrylic, gel, and dip powder options",
-    },
-    {
-      title: "Nail Art",
-      image: "https://phoenixnailsandbeautyottawa.com/photos/services/nail-art.jpg",
-      description: "Creative designs for your nails",
-    },
-    {
-      title: "Waxing",
-      image: "https://phoenixnailsandbeautyottawa.com/photos/services/waxing.jpg",
-      description: "Hair removal services",
-    },
-    {
-      title: "Kids Services",
-      image: "https://phoenixnailsandbeautyottawa.com/photos/services/kid.jpg",
-      description: "Nail care for the little ones",
-    },
-  ],
 };
 
 // src/data/latestNewsContent.tsx

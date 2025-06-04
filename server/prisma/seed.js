@@ -27,6 +27,7 @@ async function main() {
         name: cat.title,
         image: cat.image,
         description: cat.description,
+        shortDescription: cat.shortDescription,
         cost: cat.cost,
         currency: cat.currency,
         estimatedMin: cat.estimatedTimeMinutesRange[0],
