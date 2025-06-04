@@ -8,7 +8,7 @@ const category = 'Manicure'
 test('renders service selector and selects option', () => {
   render(<ServiceSelector value="" category={category} onChange={onChange} />)
   expect(screen.getByText(/select a service/i)).toBeInTheDocument()
-  const option = screen.getByText(/Spa Manicure/i)
+  const option = screen.getByRole('heading', { name: /^Spa Manicure/i })
   fireEvent.click(option)
   expect(onChange).toHaveBeenCalled()
 })
