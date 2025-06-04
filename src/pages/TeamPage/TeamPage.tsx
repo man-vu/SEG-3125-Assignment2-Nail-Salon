@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import TeammateCard from "../../components/TeammateCard/TeammateCard";
 import "./TeamPage.css";
-import { designers as fallbackDesigners, type Designer } from "../../data/designers";
+import { type Designer } from "../../data/designers";
+import { API_BASE_URL } from "@/config";
 
 const TeamPage = () => {
   const [team, setTeam] = useState<Designer[]>([]);
 
   useEffect(() => {
-    fetch('/api/designers')
+    fetch(`${API_BASE_URL}/designers`)
       .then(res => res.json())
       .then(setTeam)
       .catch(() => setTeam([]));
   }, []);
 
-  const data = team.length ? team : fallbackDesigners;
+  const data = team;
 
   return (
   <div className="team-bg">
