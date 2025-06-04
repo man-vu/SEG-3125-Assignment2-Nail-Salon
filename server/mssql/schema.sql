@@ -1,0 +1,72 @@
+CREATE DATABASE NailSalon;
+GO
+USE NailSalon;
+GO
+
+CREATE TABLE Users (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  username NVARCHAR(50) NOT NULL UNIQUE,
+  email NVARCHAR(255) NOT NULL UNIQUE,
+  phone NVARCHAR(50),
+  firstName NVARCHAR(50) NOT NULL,
+  lastName NVARCHAR(50) NOT NULL,
+  language NVARCHAR(20) NOT NULL,
+  password NVARCHAR(255) NOT NULL,
+  createdAt DATETIME2 NOT NULL DEFAULT SYSDATETIME()
+);
+GO
+
+CREATE TABLE Designers (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  name NVARCHAR(50) NOT NULL,
+  title NVARCHAR(100) NOT NULL,
+  avatar NVARCHAR(255) NOT NULL,
+  bio NVARCHAR(255) NOT NULL
+);
+GO
+
+CREATE TABLE ServiceCategories (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  name NVARCHAR(100) NOT NULL UNIQUE
+);
+GO
+
+CREATE TABLE Services (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  name NVARCHAR(100) NOT NULL,
+  description NVARCHAR(255) NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  duration INT NOT NULL,
+  image NVARCHAR(255),
+  categoryId INT NOT NULL,
+  CONSTRAINT FK_Service_Category FOREIGN KEY (categoryId)
+    REFERENCES ServiceCategories(id)
+);
+GO
+
+CREATE TABLE Bookings (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  userId INT NOT NULL,
+  designerId INT NOT NULL,
+  serviceId INT NOT NULL,
+  startTime DATETIME2 NOT NULL,
+  endTime DATETIME2 NOT NULL,
+  createdAt DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
+  CONSTRAINT FK_Booking_User FOREIGN KEY (userId) REFERENCES Users(id),
+  CONSTRAINT FK_Booking_Designer FOREIGN KEY (designerId) REFERENCES Designers(id),
+  CONSTRAINT FK_Booking_Service FOREIGN KEY (serviceId) REFERENCES Services(id)
+);
+GO
+
+CREATE TABLE Transactions (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  bookingId INT NOT NULL,
+  userId INT NOT NULL,
+  amount DECIMAL(10,2) NOT NULL,
+  currency NVARCHAR(10) NOT NULL,
+  status NVARCHAR(50) NOT NULL,
+  createdAt DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
+  CONSTRAINT FK_Transaction_Booking FOREIGN KEY (bookingId) REFERENCES Bookings(id),
+  CONSTRAINT FK_Transaction_User FOREIGN KEY (userId) REFERENCES Users(id)
+);
+GO
