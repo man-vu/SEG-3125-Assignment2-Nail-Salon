@@ -77,6 +77,23 @@ CREATE TABLE Transactions (
 );
 GO
 
+CREATE TABLE CustomerReviews (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  name NVARCHAR(100) NOT NULL,
+  role NVARCHAR(100),
+  image NVARCHAR(255),
+  quote NVARCHAR(255) NOT NULL,
+  rating INT NOT NULL
+);
+GO
+
+CREATE TABLE GalleryImages (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  url NVARCHAR(255) NOT NULL,
+  caption NVARCHAR(255)
+);
+GO
+
 -- Seed data for Designers
 INSERT INTO Designers (name, title, avatar, bio) VALUES
 ('Anna', 'Nail Technician', 'https://randomuser.me/api/portraits/women/68.jpg', 'French tip & natural nail expert (7 yrs).'),
@@ -159,4 +176,44 @@ INSERT INTO Services (name, description, price, duration, image, categoryId) VAL
 ('Kids Manicure', 'Gentle manicure for children under 12.', 12, 13, 'https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?auto=format&fit=crop&w=600&q=80', 6),
 ('Kids Pedicure', 'Gentle pedicure for children under 12.', 15, 18, 'https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=600&q=80', 6),
 ('Kids Nail Art', 'Fun and simple nail art for kids.', 5, 8, 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80', 6);
+GO
+
+-- Seed data for Customer Reviews
+INSERT INTO CustomerReviews (id, name, role, image, quote, rating) VALUES
+  (1, 'Jennifer Smith', 'Regular Client', 'https://picsum.photos/id/64/200/200', 'I''ve been coming to Dreamy Nail & Beauty for over a year now and I''m always impressed with the quality of service. The staff is professional, friendly, and incredibly talented. My nails have never looked better!', 5),
+  (2, 'Michael Johnson', 'First-time Client', 'https://picsum.photos/id/91/200/200', 'As someone who was new to professional nail care, I was a bit nervous. But the team at Dreamy Nail & Beauty made me feel comfortable and explained everything. The results were fantastic and I''ll definitely be back!', 5),
+  (3, 'Sarah Williams', 'Monthly Client', 'https://picsum.photos/id/26/200/200', 'Dreamy Nail & Beauty offers the perfect combination of relaxation and beauty. Their nail art designs are creative and always receive compliments. The salon is clean, modern, and the staff is always welcoming.', 5),
+  (4, 'Emily Davis', 'Frequent Visitor', 'https://picsum.photos/id/1027/200/200', 'From the moment I walk in, I feel pampered. The ambiance is lovely and I always leave with beautiful nails and a big smile.', 5),
+  (5, 'David Lee', 'Gift Card Recipient', 'https://picsum.photos/id/1011/200/200', 'I received a gift card for Dreamy Nail & Beauty and didn''t expect much, but I was blown away. The attention to detail and relaxing environment was top-tier.', 4),
+  (6, 'Rachel Green', 'Spa Enthusiast', 'https://picsum.photos/id/1025/200/200', 'One of the best salons in the city. I’ve been to many, but none match the quality and style of Dreamy Nail & Beauty.', 5),
+  (7, 'Olivia Brown', 'Loyal Customer', 'https://picsum.photos/id/1035/200/200', 'Highly recommend! Their designs are trendy and elegant. Always satisfied with the final look.', 5),
+  (8, 'Sophia Wilson', 'Walk-in Client', 'https://picsum.photos/id/1044/200/200', 'I walked in without an appointment and they still treated me like royalty. Great service and great people.', 4);
+GO
+
+-- Seed data for Gallery Images
+INSERT INTO GalleryImages (id, url, caption) VALUES
+  (1, '/assets/nail-gallery/1.webp', NULL),
+  (2, '/assets/nail-gallery/2.webp', NULL),
+  (3, '/assets/nail-gallery/3.webp', NULL),
+  (4, '/assets/nail-gallery/4.webp', NULL),
+  (5, '/assets/nail-gallery/5.webp', NULL),
+  (6, '/assets/nail-gallery/6.webp', NULL),
+  (7, '/assets/nail-gallery/7.webp', NULL),
+  (8, '/assets/nail-gallery/8.webp', NULL),
+  (9, '/assets/nail-gallery/9.webp', NULL),
+  (10, '/assets/nail-gallery/10.webp', NULL),
+  (11, '/assets/nail-gallery/11.webp', NULL),
+  (12, '/assets/nail-gallery/12.webp', NULL),
+  (13, '/assets/nail-gallery/13.webp', NULL),
+  (14, '/assets/nail-gallery/14.webp', NULL),
+  (15, '/assets/nail-gallery/15.webp', NULL),
+  (16, '/assets/nail-gallery/16.webp', NULL),
+  (17, '/assets/nail-gallery/17.webp', NULL),
+  (18, '/assets/nail-gallery/18.webp', NULL),
+  (19, '/assets/nail-gallery/19.webp', NULL),
+  (20, '/assets/nail-gallery/20.webp', NULL),
+  (21, '/assets/nail-gallery/21.webp', NULL),
+  (22, '/assets/nail-gallery/22.webp', NULL),
+  (23, '/assets/nail-gallery/23.webp', NULL),
+  (24, '/assets/nail-gallery/24.webp', NULL);
 GO

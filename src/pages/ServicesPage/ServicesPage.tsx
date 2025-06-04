@@ -1,8 +1,8 @@
-import React, { useRef, useLayoutEffect, useState } from 'react';
+import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import './ServicesPage.css';
 import OurServiceCard from '@/components/OurServiceCard/OurServiceCard';
 import { Button } from '@/components/ui/button';
-import { categoryServices } from '@/data/pricing';
+import { categoryServices, type CategoryServiceItem } from '@/data/pricing';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -59,11 +59,26 @@ function ServicesTabs({ categories, value, onChange }) {
 }
 
 const ServicesPage = () => {
-  const [tab, setTab] = useState(categoryServices[0].title.toLowerCase());
-  const categories = categoryServices.map(cat => ({
+  const [data, setData] = useState<CategoryServiceItem[]>([]);
+  const [tab, setTab] = useState('');
+
+  useEffect(() => {
+    fetch('/api/categories')
+      .then(res => res.json())
+      .then(setData)
+      .catch(() => setData([]));
+  }, []);
+
+  const categoriesList = (data.length ? data : categoryServices).map(cat => ({
     label: cat.title.toUpperCase(),
     value: cat.title.toLowerCase(),
   }));
+
+  useEffect(() => {
+    if (!tab && categoriesList.length) {
+      setTab(categoriesList[0].value);
+    }
+  }, [categoriesList, tab]);
 
   return (
     <main className="services-bg">
@@ -77,10 +92,11 @@ const ServicesPage = () => {
 
       {/* Services Tabs */}
       <section className="services-tabs-container">
-        <ServicesTabs categories={categories} value={tab} onChange={setTab} />
+        <ServicesTabs categories={categoriesList} value={tab} onChange={setTab} />
         <AnimatePresence mode="wait">
           {(() => {
-            const activeCategory = categoryServices.find(
+            const source = data.length ? data : categoryServices;
+            const activeCategory = source.find(
               (cat) => cat.title.toLowerCase() === tab
             );
             if (!activeCategory) return null;
@@ -96,7 +112,7 @@ const ServicesPage = () => {
                 <div className="services-cards-grid">
                   {activeCategory.services?.map((svc, i) => (
                     <motion.div
-                      key={svc.title}
+                      key={svc.title || svc.name}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{
@@ -106,12 +122,12 @@ const ServicesPage = () => {
                     >
                       <OurServiceCard
                         image={svc.image}
-                        title={svc.title}
+                        title={svc.title || svc.name}
                         category={activeCategory.title}
                         description={svc.description}
-                        cost={svc.cost}
-                        currency={svc.currency}
-                        estimatedTimeMinutesRange={svc.estimatedTimeMinutesRange}
+                        cost={svc.cost ?? svc.price}
+                        currency={svc.currency ?? activeCategory.currency}
+                        estimatedTimeMinutesRange={svc.estimatedTimeMinutesRange ? svc.estimatedTimeMinutesRange : [svc.duration, svc.duration]}
                         shortDescription={svc.shortDescription}
                       />
                     </motion.div>
