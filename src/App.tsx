@@ -11,6 +11,7 @@ import GiftCards from './containers/gift-cards/GiftCards';
 import { lazy, Suspense } from 'react';
 
 const BookingPage = lazy(() => import('./pages/BookingPage/BookingPage'));
+const PaymentPage = lazy(() => import('./pages/PaymentPage/PaymentPage'));
 const ServicesPage = lazy(() => import('./pages/ServicesPage/ServicesPage'));
 const TeamPage = lazy(() => import('./pages/TeamPage/TeamPage'));
 const ContactUsPage = lazy(() => import('./pages/ContactUsPage/ContactUsPage'));
@@ -49,6 +50,14 @@ function AnimatedRoutes() {
           element={
             <motion.div {...pageTransition}>
               <BookingPage />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <motion.div {...pageTransition}>
+              <PaymentPage />
             </motion.div>
           }
         />
