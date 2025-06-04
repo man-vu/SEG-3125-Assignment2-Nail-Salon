@@ -7,6 +7,7 @@ import DesignerSelector from '@/components/DesignerSelector/DesignerSelector';
 import Scheduler from '@/components/Scheduler/Scheduler';
 import StepProgressBar from '@/components/StepProgressBar/StepProgressBar';
 import ReviewModal from '@/components/ReviewModal/ReviewModal';
+import PaymentModal from '@/components/PaymentModal/PaymentModal';
 import SidebarMask from '@/components/SidebarMask/SidebarMask';
 import { getDummyBookings, BookingEvent } from '@/data/availableSlots';
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,6 +19,7 @@ const steps = [
   'Select an artist',
   'Select date & time',
   'Review & Confirmation',
+  'Payment',
 ];
 
 const BookingPage = () => {
@@ -35,6 +37,7 @@ const BookingPage = () => {
   const [events, setEvents] = useState<BookingEvent[]>([]);
   const [step, setStep] = useState(0);
   const [showReview, setShowReview] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
   const isMobile = useIsMobile(); // <-- use the custom hook
 
   useEffect(() => {
@@ -112,14 +115,25 @@ const BookingPage = () => {
       },
     ]);
     setShowReview(false);
-    navigate('/payment', { state: { formData } });
-    setStep(0);
-    setFormData({ category: '', service: '', designer: '', start: null, end: null });
+    setShowPayment(true);
+    setStep(5);
   };
 
   const handleReviewClose = () => {
     setShowReview(false);
     setStep(3);
+  };
+
+  const handlePaymentClose = () => {
+    setShowPayment(false);
+    setStep(4);
+  };
+
+  const handlePaymentSuccess = () => {
+    setShowPayment(false);
+    navigate('/');
+    setStep(0);
+    setFormData({ category: '', service: '', designer: '', start: null, end: null });
   };
 
   // ----------- Core logic for hiding selectors on mobile at date/time step -----------
@@ -224,6 +238,12 @@ const BookingPage = () => {
         onClose={handleReviewClose}
         onConfirm={handleSubmit}
         formData={formData}
+      />
+      <PaymentModal
+        open={showPayment}
+        booking={formData}
+        onClose={handlePaymentClose}
+        onSuccess={handlePaymentSuccess}
       />
     </section>
   );
