@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { designers } from '../src/data/designers.js';
 import { categoryServices } from '../src/data/pricing.js';
+import { testimonials, galleryImages } from '../src/data/content.js';
 
 const prisma = new PrismaClient();
 
@@ -48,6 +49,33 @@ async function main() {
         });
       }
     }
+  }
+
+  for (const review of testimonials) {
+    await prisma.customerReview.upsert({
+      where: { id: review.id },
+      update: {},
+      create: {
+        id: review.id,
+        name: review.name,
+        role: review.role,
+        image: review.image,
+        quote: review.quote,
+        rating: review.rating,
+      },
+    });
+  }
+
+  for (const img of galleryImages) {
+    await prisma.galleryImage.upsert({
+      where: { id: img.id },
+      update: {},
+      create: {
+        id: img.id,
+        url: img.url,
+        caption: img.caption,
+      },
+    });
   }
 }
 

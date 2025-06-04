@@ -81,3 +81,18 @@ model Transaction {
   status     String
   createdAt  DateTime @default(now())
 }
+
+model CustomerReview {
+  id       Int    @id @default(autoincrement())
+  name     String
+  role     String?
+  image    String?
+  quote    String
+  rating   Int
+}
+
+model GalleryImage {
+  id      Int    @id @default(autoincrement())
+  url     String
+  caption String?
+}

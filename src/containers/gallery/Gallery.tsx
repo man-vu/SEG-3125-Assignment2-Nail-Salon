@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import GalleryCard from '../../components/GalleryCard/GalleryCard';
 import { galleryContent } from '@/data/content';
 import './Gallery.css';
 import GalleryModal from '@/components/GalleryModal/GalleryModal';
 
-const images = Object.values(
+const localImages = Object.values(
   import.meta.glob('../../assets/nail-gallery/*.webp', {
     eager: true,
     import: 'default',
@@ -28,6 +28,14 @@ const cardVariants = {
 
 const Gallery = () => {
   const [modalIndex, setModalIndex] = useState<number | null>(null);
+  const [images, setImages] = useState<string[]>(localImages);
+
+  useEffect(() => {
+    fetch('/api/gallery')
+      .then(res => res.json())
+      .then((data: { url: string }[]) => setImages(data.map(d => d.url)))
+      .catch(() => {});
+  }, []);
 
   return (
     <section id='gallery' className="gallery-section">
