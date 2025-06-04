@@ -1,0 +1,83 @@
+// Prisma schema for Nail Salon app
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  username   String   @unique
+  email      String   @unique
+  phone      String?
+  firstName  String
+  lastName   String
+  language   String
+  password   String
+  bookings   Booking[]
+  transactions Transaction[]
+  createdAt  DateTime @default(now())
+}
+
+model Designer {
+  id        Int      @id @default(autoincrement())
+  name      String
+  title     String
+  avatar    String
+  bio       String
+  bookings  Booking[]
+}
+
+model ServiceCategory {
+  id            Int      @id @default(autoincrement())
+  name          String
+  image         String
+  description   String
+  cost          Float
+  currency      String
+  estimatedMin  Int
+  estimatedMax  Int
+  services      Service[]
+}
+
+model Service {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  duration    Int
+  image       String?
+  categoryId  Int
+  category    ServiceCategory @relation(fields: [categoryId], references: [id])
+  bookings    Booking[]
+}
+
+model Booking {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  designerId Int
+  designer   Designer @relation(fields: [designerId], references: [id])
+  serviceId  Int
+  service    Service  @relation(fields: [serviceId], references: [id])
+  transactions Transaction[]
+  startTime  DateTime
+  endTime    DateTime
+  createdAt  DateTime @default(now())
+}
+
+model Transaction {
+  id         Int      @id @default(autoincrement())
+  bookingId  Int
+  booking    Booking  @relation(fields: [bookingId], references: [id])
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  amount     Float
+  currency   String
+  status     String
+  createdAt  DateTime @default(now())
+}
