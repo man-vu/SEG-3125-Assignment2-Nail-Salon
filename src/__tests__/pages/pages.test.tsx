@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
+import { AuthProvider } from '@/contexts/AuthContext'
 import BookingPage from '@/pages/BookingPage/BookingPage'
 import ServicesPage from '@/pages/ServicesPage/ServicesPage'
 import TeamPage from '@/pages/TeamPage/TeamPage'
@@ -15,7 +16,7 @@ describe('Page renders', () => {
         <BookingPage />
       </BrowserRouter>
     )
-    expect(screen.getByText(/book an appointment/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /book an appointment/i })).toBeInTheDocument()
   })
 
   it('ServicesPage', () => {
@@ -24,7 +25,7 @@ describe('Page renders', () => {
         <ServicesPage />
       </BrowserRouter>
     )
-    expect(screen.getByText(/services/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /services/i })).toBeInTheDocument()
   })
 
   it('TeamPage', () => {
@@ -33,7 +34,7 @@ describe('Page renders', () => {
         <TeamPage />
       </BrowserRouter>
     )
-    expect(screen.getByText(/our team/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /our team/i })).toBeInTheDocument()
   })
 
   it('ContactUsPage', () => {
@@ -42,7 +43,7 @@ describe('Page renders', () => {
         <ContactUsPage />
       </BrowserRouter>
     )
-    expect(screen.getByText(/contact us/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /contact us/i })).toBeInTheDocument()
   })
 
   it('GiftCardPage', () => {
@@ -51,24 +52,28 @@ describe('Page renders', () => {
         <GiftCardPage />
       </BrowserRouter>
     )
-    expect(screen.getByText(/gift card/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /gift card/i })).toBeInTheDocument()
   })
 
   it('LoginPage', () => {
     render(
-      <BrowserRouter>
-        <LoginPage />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <LoginPage />
+        </BrowserRouter>
+      </AuthProvider>
     )
-    expect(screen.getByText(/login/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /login/i })).toBeInTheDocument()
   })
 
   it('RegisterPage', () => {
     render(
-      <BrowserRouter>
-        <RegisterPage />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <RegisterPage />
+        </BrowserRouter>
+      </AuthProvider>
     )
-    expect(screen.getByText(/register/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /register/i })).toBeInTheDocument()
   })
 })

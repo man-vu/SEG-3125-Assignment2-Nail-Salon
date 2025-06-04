@@ -6,7 +6,7 @@ test('renders steps and handles click', () => {
   const onStepClick = jest.fn()
   render(<StepProgressBar steps={steps} currentStep={1} onStepClick={onStepClick} />)
   expect(screen.getByText('one')).toBeInTheDocument()
-  const first = screen.getByText('one')
+  const first = screen.getByText('1')
   fireEvent.click(first)
   expect(onStepClick).toHaveBeenCalled()
 })
