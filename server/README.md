@@ -30,7 +30,8 @@ sqlcmd -S <your-server> -i server/mssql/schema.sql
 ```
 
 This creates the same tables as the Prisma schema and inserts sample data for
-designers, service categories and services.
+designers, service categories (including descriptions, pricing and timing
+details) and services.
 
 ## Project Structure
 

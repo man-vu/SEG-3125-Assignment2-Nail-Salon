@@ -27,7 +27,13 @@ GO
 
 CREATE TABLE ServiceCategories (
   id INT IDENTITY(1,1) PRIMARY KEY,
-  name NVARCHAR(100) NOT NULL UNIQUE
+  name NVARCHAR(100) NOT NULL UNIQUE,
+  image NVARCHAR(255) NOT NULL,
+  description NVARCHAR(255) NOT NULL,
+  cost DECIMAL(10,2) NOT NULL,
+  currency NVARCHAR(10) NOT NULL,
+  durationMin INT NOT NULL,
+  durationMax INT NOT NULL
 );
 GO
 
@@ -86,13 +92,32 @@ INSERT INTO Designers (name, title, avatar, bio) VALUES
 GO
 
 -- Seed data for Service Categories
-INSERT INTO ServiceCategories (name) VALUES
-('Manicure'),
-('Pedicure'),
-('Artificial Nails'),
-('Nail Art'),
-('Waxing'),
-('Kids Services');
+INSERT INTO ServiceCategories
+  (name, image, description, cost, currency, durationMin, durationMax) VALUES
+('Manicure',
+ 'https://phoenixnailsandbeautyottawa.com/photos/services/manicure.jpg',
+ 'Treat your hands to the care they deserve with our professional manicure service. We shape, buff, and polish your nails to perfection, complete with cuticle care and a relaxing hand massage.',
+ 35, 'CAD', 30, 45),
+('Pedicure',
+ 'https://phoenixnailsandbeautyottawa.com/photos/services/pedicure.jpg',
+ 'Rejuvenate your feet with a deep-cleaning pedicure that includes nail trimming, exfoliation, cuticle treatment, and a soothing massage to leave your feet soft, smooth, and refreshed.',
+ 45, 'CAD', 40, 60),
+('Artificial Nails',
+ 'https://phoenixnailsandbeautyottawa.com/photos/services/artificial-nail.jpg',
+ 'Enhance your natural nails with durable and stylish acrylic, gel, or dip powder enhancements. Ideal for lengthening nails or achieving that flawless, chip-free finish.',
+ 60, 'CAD', 60, 90),
+('Nail Art',
+ 'https://phoenixnailsandbeautyottawa.com/photos/services/nail-art.jpg',
+ 'Express your style with custom nail art. From minimalist patterns to bold, intricate designs, our artists will bring your creative vision to life on your fingertips.',
+ 25, 'CAD', 20, 40),
+('Waxing',
+ 'https://phoenixnailsandbeautyottawa.com/photos/services/waxing.jpg',
+ 'Smooth skin is just a session away. We offer facial and body waxing for quick, effective, and long-lasting hair removal using skin-friendly products and hygienic practices.',
+ 30, 'CAD', 15, 30),
+('Kids Services',
+ 'https://phoenixnailsandbeautyottawa.com/photos/services/kid.jpg',
+ 'Designed especially for our young guests, this gentle service includes light nail shaping, polishing, and optional nail art — a fun and safe pampering session for children.',
+ 20, 'CAD', 20, 30);
 GO
 
 -- Seed data for Services

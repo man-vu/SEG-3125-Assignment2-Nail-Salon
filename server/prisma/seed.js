@@ -22,7 +22,15 @@ async function main() {
     const category = await prisma.serviceCategory.upsert({
       where: { name: cat.title },
       update: {},
-      create: { name: cat.title },
+      create: {
+        name: cat.title,
+        image: cat.image,
+        description: cat.description,
+        cost: cat.cost,
+        currency: cat.currency,
+        estimatedMin: cat.estimatedTimeMinutesRange[0],
+        estimatedMax: cat.estimatedTimeMinutesRange[1],
+      },
     });
     if (cat.services) {
       for (const svc of cat.services) {
