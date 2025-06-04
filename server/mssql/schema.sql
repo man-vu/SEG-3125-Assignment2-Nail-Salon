@@ -186,6 +186,7 @@ INSERT INTO Services (name, description, price, duration, image, categoryId) VAL
 GO
 
 -- Seed data for Customer Reviews
+SET IDENTITY_INSERT CustomerReviews ON;
 INSERT INTO CustomerReviews (id, name, role, image, quote, rating) VALUES
   (1, 'Jennifer Smith', 'Regular Client', 'https://picsum.photos/id/64/200/200', 'I''ve been coming to Dreamy Nail & Beauty for over a year now and I''m always impressed with the quality of service. The staff is professional, friendly, and incredibly talented. My nails have never looked better!', 5),
   (2, 'Michael Johnson', 'First-time Client', 'https://picsum.photos/id/91/200/200', 'As someone who was new to professional nail care, I was a bit nervous. But the team at Dreamy Nail & Beauty made me feel comfortable and explained everything. The results were fantastic and I''ll definitely be back!', 5),
@@ -195,9 +196,9 @@ INSERT INTO CustomerReviews (id, name, role, image, quote, rating) VALUES
   (6, 'Rachel Green', 'Spa Enthusiast', 'https://picsum.photos/id/1025/200/200', 'One of the best salons in the city. I’ve been to many, but none match the quality and style of Dreamy Nail & Beauty.', 5),
   (7, 'Olivia Brown', 'Loyal Customer', 'https://picsum.photos/id/1035/200/200', 'Highly recommend! Their designs are trendy and elegant. Always satisfied with the final look.', 5),
   (8, 'Sophia Wilson', 'Walk-in Client', 'https://picsum.photos/id/1044/200/200', 'I walked in without an appointment and they still treated me like royalty. Great service and great people.', 4);
-GO
-
+SET IDENTITY_INSERT CustomerReviews OFF;
 -- Seed data for Gallery Images
+SET IDENTITY_INSERT GalleryImages ON;
 INSERT INTO GalleryImages (id, url, caption) VALUES
   (1, '/assets/nail-gallery/1.webp', NULL),
   (2, '/assets/nail-gallery/2.webp', NULL),
@@ -223,4 +224,5 @@ INSERT INTO GalleryImages (id, url, caption) VALUES
   (22, '/assets/nail-gallery/22.webp', NULL),
   (23, '/assets/nail-gallery/23.webp', NULL),
   (24, '/assets/nail-gallery/24.webp', NULL);
+SET IDENTITY_INSERT GalleryImages OFF;
 GO

@@ -29,32 +29,6 @@ export const servicesContent = {
   cta: "View All Services",
 };
 
-// src/data/latestNewsContent.tsx
-export const latestNewsContent = {
-  heading: 'Latest News & Events',
-  subheading: 'Stay updated with our latest news, tips, and special events',
-  cta: 'View All Posts',
-  blogPosts: [
-    {
-      image: 'https://picsum.photos/id/64/400/300',
-      date: 'May 18, 2023',
-      title: 'Summer Nail Trends You Need to Try',
-      excerpt: 'Discover the hottest nail designs and colors that are trending this summer season.',
-    },
-    {
-      image: 'https://picsum.photos/id/65/400/300',
-      date: 'May 5, 2023',
-      title: 'How to Make Your Manicure Last Longer',
-      excerpt: 'Tips and tricks to extend the life of your manicure and keep your nails looking fresh.',
-    },
-    {
-      image: 'https://picsum.photos/id/66/400/300',
-      date: 'April 22, 2023',
-      title: 'The Benefits of Regular Pedicures',
-      excerpt: 'Why regular pedicures are essential for not just beauty but also for your overall foot health.',
-    },
-  ],
-};
 
 // src/data/aboutContent.tsx
 export const aboutContent = {
@@ -135,13 +109,6 @@ export const heroSlides = [
   },
 ];
 
-// src/data/nailCareContent.tsx
-export const nailCareContent = {
-  title: 'Nail Care',
-  description:
-    'Ligula risus auctor tempus and dolor vitae undo purus semper sodales',
-  buttonText: 'Find Out More',
-};
 
 // src/data/testimonialsContent.tsx
 export const testimonialsContent = {
@@ -149,79 +116,6 @@ export const testimonialsContent = {
 };
 
 
-// src/data/skilledNailArtContent.tsx
-export const skilledNailArtContent = {
-  tag: 'Get Your Shine On',
-  heading: 'Skilled Nail Art',
-  description:
-    'Nullam tempor sapien gravida donec and pretium ipsum porta integer justo an odio velna vitae auctor integer congue',
-  panelTitle: 'Reveal Colourful You',
-  panelText:
-    'Nullam tempor sapien gravida donec and pretium ipsum porta integer justo odio velna a vitae auctor justo integer congue undo purus ligula a pretium',
-};
-
-// src/data/promotionsContent.tsx
-export const promotionsContent = {
-  subtitle: 'Grand Opening Special',
-  title: 'A Touch of Dreamy Luxury',
-  description: 'Celebrate our launch with an exclusive gift. Enjoy a complimentary nail art upgrade on any service booked this week! Use code: ',
-  discountCode: 'DREAMUPGRADE',
-  buttonText: 'Reserve Your Spot',
-  partnerLogos: [
-    'https://picsum.photos/id/210/120/60',
-    'https://picsum.photos/id/211/120/60',
-    'https://picsum.photos/id/212/120/60',
-    'https://picsum.photos/id/213/120/60',
-    'https://picsum.photos/id/214/120/60',
-  ],
-};
-
-
-// src/data/pricingContent.tsx
-export const pricingContent = {
-  headerTitle: 'Nails For Every Budget',
-  headerDescription: 'Choose from our range of nail care packages designed to meet your needs and budget',
-  pricingOptions: [
-    {
-      title: 'Basic Manicure',
-      price: '$35',
-      features: [
-        'Nail shaping',
-        'Cuticle care',
-        'Hand massage',
-        'Polish application',
-        '15-minute treatment',
-      ],
-    },
-    {
-      title: 'Deluxe Manicure & Pedicure',
-      price: '$75',
-      features: [
-        'Nail shaping and buffing',
-        'Cuticle treatment',
-        'Exfoliating scrub',
-        'Extended massage',
-        'Premium polish application',
-        '45-minute treatment',
-      ],
-      popular: true,
-    },
-    {
-      title: 'Luxury Spa Package',
-      price: '$120',
-      features: [
-        'Deluxe manicure & pedicure',
-        'Paraffin wax treatment',
-        'Callus removal',
-        'Aromatherapy',
-        'Nail art (simple design)',
-        '90-minute treatment',
-      ],
-    },
-  ],
-  footerText: 'View our complete service menu for additional options and custom packages',
-  footerLinkText: 'View Full Price List →',
-};
 
 // src/data/giftCardsContent.tsx
 export const giftCardsContent = {
