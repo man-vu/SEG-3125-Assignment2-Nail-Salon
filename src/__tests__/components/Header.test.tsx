@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
-import App from './App'
+import Header from '@/components/Header/Header'
 
-test('renders header', () => {
+test('renders header logo text', () => {
   render(
     <BrowserRouter>
-      <App />
+      <Header />
     </BrowserRouter>
   )
   expect(screen.getByText(/REAMY NAIL & BEAUTY/i)).toBeInTheDocument()
