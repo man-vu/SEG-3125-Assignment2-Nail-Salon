@@ -13,6 +13,7 @@ import { type CategoryServiceItem } from '@/data/pricing';
 import { designers as fallbackDesigners, type Designer } from '@/data/designers';
 import { motion, AnimatePresence } from "framer-motion";
 import { useIsMobile } from '@/lib/useIsMobile'; // import the custom hook
+import { API_BASE_URL } from '@/config';
 
 const steps = [
   'Select a service category',
@@ -43,7 +44,7 @@ const BookingPage = () => {
 
 useEffect(() => {
   console.log('Fetching categories...');
-  fetch('http://localhost:3001/api/categories')
+  fetch(`${API_BASE_URL}/categories`)
     .then(res => {
       
       console.log('Categories response status:', res.status);
@@ -60,7 +61,7 @@ useEffect(() => {
     });
 
   console.log('Fetching designers...');
-  fetch('http://localhost:3001/api/designers')
+  fetch(`${API_BASE_URL}/designers`)
     .then(res => {
       console.log('Designers response status:', res.status);
       return res.json();
@@ -264,7 +265,10 @@ useEffect(() => {
         open={showReview}
         onClose={handleReviewClose}
         onConfirm={handleSubmit}
-        formData={formData}
+        formData={{
+          ...formData,
+          category: categories.find(c => c.id === formData.category) as any,
+        }}
       />
     </section>
   );

@@ -3,6 +3,7 @@ import './ServicesPage.css';
 import OurServiceCard from '@/components/OurServiceCard/OurServiceCard';
 import { Button } from '@/components/ui/button';
 import { type CategoryServiceItem } from '@/data/pricing';
+import { API_BASE_URL } from '@/config';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -63,19 +64,20 @@ const ServicesPage = () => {
   const [tab, setTab] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/categories')
+    fetch(`${API_BASE_URL}/categories`)
       .then(res => res.json())
       .then(setData)
       .catch(() => setData([]));
   }, []);
 
-  const categoriesList = data;
-
-  debugger
+  const categoriesList = data.map(cat => ({
+    label: (cat.title || cat.name).toUpperCase(),
+    value: (cat.title || cat.name).toLowerCase(),
+  }));
 
   useEffect(() => {
     if (!tab && categoriesList.length) {
-      setTab(categoriesList[0].title.toLowerCase());
+      setTab(categoriesList[0].value);
     }
   }, [categoriesList, tab]);
 
@@ -96,12 +98,12 @@ const ServicesPage = () => {
           {(() => {
             const source = data;
             const activeCategory = source.find(
-              (cat) => cat.title.toLowerCase() === tab
+              (cat) => (cat.title || cat.name)?.toLowerCase() === tab
             );
             if (!activeCategory) return null;
             return (
               <motion.div
-                key={activeCategory.title} // must use key for AnimatePresence
+                key={activeCategory.title || activeCategory.name} // must use key for AnimatePresence
                 className="services-tabs-content"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -109,7 +111,7 @@ const ServicesPage = () => {
                 transition={{ duration: 0.32, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
                 <div className="services-cards-grid">
-                  {activeCategory.services?.map((svc, i) => (
+                  {activeCategory.Services?.map((svc, i) => (
                     <motion.div
                       key={svc.title || svc.name}
                       initial={{ opacity: 0, y: 20 }}
@@ -122,7 +124,7 @@ const ServicesPage = () => {
                       <OurServiceCard
                         image={svc.image}
                         title={svc.title || svc.name}
-                        category={activeCategory.title}
+                        category={activeCategory.title || activeCategory.name}
                         description={svc.description}
                         cost={svc.cost ?? svc.price}
                         currency={svc.currency ?? activeCategory.currency}
