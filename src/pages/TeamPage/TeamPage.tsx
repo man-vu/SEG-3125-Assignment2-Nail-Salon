@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TeammateCard from "../../components/TeammateCard/TeammateCard";
 import "./TeamPage.css";
-import { designers } from "../../data/designers";
+import { designers as fallbackDesigners, type Designer } from "../../data/designers";
 
-const TeamPage = () => (
+const TeamPage = () => {
+  const [team, setTeam] = useState<Designer[]>([]);
+
+  useEffect(() => {
+    fetch('/api/designers')
+      .then(res => res.json())
+      .then(setTeam)
+      .catch(() => setTeam([]));
+  }, []);
+
+  const data = team.length ? team : fallbackDesigners;
+
+  return (
   <div className="team-bg">
     <main className="team-main">
       {/* Page Header */}
@@ -16,7 +28,7 @@ const TeamPage = () => (
       </header>
 
       <section className="team-grid">
-        {designers.map((designer) => (
+        {data.map((designer) => (
           <TeammateCard
             key={designer.name}
             name={designer.name}
@@ -28,6 +40,7 @@ const TeamPage = () => (
       </section>
     </main>
   </div>
-);
+  );
+};
 
 export default TeamPage;

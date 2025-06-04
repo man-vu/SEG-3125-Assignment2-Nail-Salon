@@ -42,6 +42,12 @@ details) and services.
 
 All API endpoints are mounted under `/api`.
 
+### Reviews and Gallery
+
+Customer testimonials can be retrieved from `/api/reviews`.
+
+Gallery images are available from `/api/gallery`.
+
 ### Transactions
 
 Financial operations are stored in a `Transaction` table. Routes are available under `/api/transactions` to create and list user transactions.
