@@ -12,7 +12,7 @@ model Bookings {
   userId       Int
   designerId   Int
   serviceId    Int
-  slotId       Int
+  slotId       Int      @unique
   startTime    DateTime
   endTime      DateTime
   createdAt    DateTime       @default(dbgenerated("sysdatetime()"), map: "DF__Bookings__create__440B1D61")
@@ -117,5 +117,5 @@ model AvailableAppointments {
   endTime    DateTime
   booked     Boolean   @default(false)
   Designers  Designers @relation(fields: [designerId], references: [id], onUpdate: NoAction, map: "FK_Available_Designer")
-  Bookings   Bookings?
+  Bookings   Bookings? @relation(fields: [id], references: [slotId])
 }

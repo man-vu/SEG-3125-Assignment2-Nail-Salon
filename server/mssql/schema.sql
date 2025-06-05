@@ -83,7 +83,8 @@ CREATE TABLE Bookings (
   CONSTRAINT FK_Booking_User FOREIGN KEY (userId) REFERENCES Users(id),
   CONSTRAINT FK_Booking_Designer FOREIGN KEY (designerId) REFERENCES Designers(id),
   CONSTRAINT FK_Booking_Service FOREIGN KEY (serviceId) REFERENCES Services(id),
-  CONSTRAINT FK_Booking_Available FOREIGN KEY (slotId) REFERENCES AvailableAppointments(id)
+  CONSTRAINT FK_Booking_Available FOREIGN KEY (slotId) REFERENCES AvailableAppointments(id),
+  CONSTRAINT UQ_Booking_Slot UNIQUE (slotId)
 );
 GO
 
