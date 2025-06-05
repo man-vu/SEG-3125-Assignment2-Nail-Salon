@@ -11,13 +11,17 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const booking = await addBooking({
-    ...req.body,
-    userId: req.userId,
-    startTime: new Date(req.body.startTime),
-    endTime: new Date(req.body.endTime)
-  });
-  res.json(booking);
+  try {
+    const booking = await addBooking({
+      ...req.body,
+      userId: req.userId,
+      startTime: new Date(req.body.startTime),
+      endTime: new Date(req.body.endTime)
+    });
+    res.json(booking);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 export default router;

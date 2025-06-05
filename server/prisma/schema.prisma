@@ -12,11 +12,13 @@ model Bookings {
   userId       Int
   designerId   Int
   serviceId    Int
+  slotId       Int
   startTime    DateTime
   endTime      DateTime
   createdAt    DateTime       @default(dbgenerated("sysdatetime()"), map: "DF__Bookings__create__440B1D61")
   Designers    Designers      @relation(fields: [designerId], references: [id], onUpdate: NoAction, map: "FK_Booking_Designer")
   Services     Services       @relation(fields: [serviceId], references: [id], onUpdate: NoAction, map: "FK_Booking_Service")
+  AvailableAppointments AvailableAppointments @relation(fields: [slotId], references: [id], onUpdate: NoAction, map: "FK_Booking_Available")
   Users        Users          @relation(fields: [userId], references: [id], onUpdate: NoAction, map: "FK_Booking_User")
   Transactions Transactions[]
 }
@@ -37,6 +39,8 @@ model Designers {
   avatar   String     @db.NVarChar(255)
   bio      String     @db.NVarChar(255)
   Bookings Bookings[]
+  DesignerServices DesignerServices[]
+  AvailableAppointments AvailableAppointments[]
 }
 
 model GalleryImages {
@@ -67,6 +71,7 @@ model Services {
   image             String?           @db.NVarChar(255)
   categoryId        Int
   Bookings          Bookings[]
+  DesignerServices  DesignerServices[]
   ServiceCategories ServiceCategories @relation(fields: [categoryId], references: [id], onUpdate: NoAction, map: "FK_Service_Category")
 }
 
@@ -94,4 +99,23 @@ model Users {
   createdAt    DateTime       @default(dbgenerated("sysdatetime()"), map: "DF__Users__createdAt__398D8EEE")
   Bookings     Bookings[]
   Transactions Transactions[]
+}
+
+model DesignerServices {
+  id         Int       @id @default(autoincrement())
+  designerId Int
+  serviceId  Int
+  Designers  Designers @relation(fields: [designerId], references: [id], onUpdate: NoAction, map: "FK_DS_Designer")
+  Services   Services  @relation(fields: [serviceId], references: [id], onUpdate: NoAction, map: "FK_DS_Service")
+  @@unique([designerId, serviceId], map: "UQ_Designer_Service")
+}
+
+model AvailableAppointments {
+  id         Int       @id @default(autoincrement())
+  designerId Int
+  startTime  DateTime
+  endTime    DateTime
+  booked     Boolean   @default(false)
+  Designers  Designers @relation(fields: [designerId], references: [id], onUpdate: NoAction, map: "FK_Available_Designer")
+  Bookings   Bookings?
 }
