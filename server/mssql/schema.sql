@@ -51,17 +51,40 @@ CREATE TABLE Services (
 );
 GO
 
+CREATE TABLE DesignerServices (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  designerId INT NOT NULL,
+  serviceId INT NOT NULL,
+  CONSTRAINT FK_DS_Designer FOREIGN KEY (designerId) REFERENCES Designers(id),
+  CONSTRAINT FK_DS_Service FOREIGN KEY (serviceId) REFERENCES Services(id),
+  CONSTRAINT UQ_Designer_Service UNIQUE (designerId, serviceId)
+);
+GO
+
+CREATE TABLE AvailableAppointments (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  designerId INT NOT NULL,
+  startTime DATETIME2 NOT NULL,
+  endTime DATETIME2 NOT NULL,
+  booked BIT NOT NULL DEFAULT 0,
+  CONSTRAINT FK_Available_Designer FOREIGN KEY (designerId) REFERENCES Designers(id)
+);
+GO
+
 CREATE TABLE Bookings (
   id INT IDENTITY(1,1) PRIMARY KEY,
   userId INT NOT NULL,
   designerId INT NOT NULL,
   serviceId INT NOT NULL,
+  slotId INT NOT NULL,
   startTime DATETIME2 NOT NULL,
   endTime DATETIME2 NOT NULL,
   createdAt DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
   CONSTRAINT FK_Booking_User FOREIGN KEY (userId) REFERENCES Users(id),
   CONSTRAINT FK_Booking_Designer FOREIGN KEY (designerId) REFERENCES Designers(id),
-  CONSTRAINT FK_Booking_Service FOREIGN KEY (serviceId) REFERENCES Services(id)
+  CONSTRAINT FK_Booking_Service FOREIGN KEY (serviceId) REFERENCES Services(id),
+  CONSTRAINT FK_Booking_Available FOREIGN KEY (slotId) REFERENCES AvailableAppointments(id),
+  CONSTRAINT UQ_Booking_Slot UNIQUE (slotId)
 );
 GO
 
@@ -226,3 +249,44 @@ INSERT INTO GalleryImages (id, url, caption) VALUES
   (24, '/assets/nail-gallery/24.webp', NULL);
 SET IDENTITY_INSERT GalleryImages OFF;
 GO
+
+-- Seed data for DesignerServices
+INSERT INTO DesignerServices (designerId, serviceId) VALUES
+  (1, 1),
+  (1, 2),
+  (2, 5),
+  (3, 8);
+GO
+
+-- Seed data for AvailableAppointments
+SET IDENTITY_INSERT AvailableAppointments ON;
+INSERT INTO AvailableAppointments (id, designerId, startTime, endTime, booked) VALUES
+  (1, 1, '2024-01-01T10:00:00', '2024-01-01T10:30:00', 0),
+  (2, 1, '2024-01-01T11:00:00', '2024-01-01T11:30:00', 0),
+  (3, 2, '2024-01-02T13:00:00', '2024-01-02T13:30:00', 0),
+  (4, 3, '2024-01-03T09:00:00', '2024-01-03T09:30:00', 0),
+  (5, 1, '2024-05-31T10:00:00', '2024-05-31T10:30:00', 1),
+  (6, 2, '2024-06-05T14:00:00', '2024-06-05T14:30:00', 1),
+  (7, 3, '2024-06-20T09:00:00', '2024-06-20T09:30:00', 0),
+  (8, 1, '2024-07-01T10:00:00', '2024-07-01T10:30:00', 0),
+  (9, 2, '2024-07-15T13:00:00', '2024-07-15T13:30:00', 0),
+  (10, 3, '2024-07-22T09:00:00', '2024-07-22T09:30:00', 0),
+  (11, 1, '2024-08-05T10:00:00', '2024-08-05T10:30:00', 0),
+  (12, 2, '2024-08-12T13:00:00', '2024-08-12T13:30:00', 0),
+  (13, 3, '2024-08-26T09:00:00', '2024-08-26T09:30:00', 0);
+SET IDENTITY_INSERT AvailableAppointments OFF;
+GO
+
+-- Seed demo user for bookings
+SET IDENTITY_INSERT Users ON;
+INSERT INTO Users (id, username, email, phone, firstName, lastName, language, password)
+VALUES (1, 'demo', 'demo@example.com', '555-0100', 'Demo', 'User', 'en', 'password');
+SET IDENTITY_INSERT Users OFF;
+
+-- Seed data for Bookings over the past two weeks
+SET IDENTITY_INSERT Bookings ON;
+INSERT INTO Bookings (id, userId, designerId, serviceId, slotId, startTime, endTime, createdAt)
+VALUES
+  (1, 1, 1, 1, 5, '2024-05-31T10:00:00', '2024-05-31T10:30:00', SYSDATETIME()),
+  (2, 1, 2, 5, 6, '2024-06-05T14:00:00', '2024-06-05T14:30:00', SYSDATETIME());
+SET IDENTITY_INSERT Bookings OFF;

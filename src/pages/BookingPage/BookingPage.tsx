@@ -8,7 +8,7 @@ import Scheduler from '@/components/Scheduler/Scheduler';
 import StepProgressBar from '@/components/StepProgressBar/StepProgressBar';
 import ReviewModal from '@/components/ReviewModal/ReviewModal';
 import SidebarMask from '@/components/SidebarMask/SidebarMask';
-import { getDummyBookings, BookingEvent } from '@/data/availableSlots';
+import { type BookingEvent } from '@/data/availableSlots';
 import { type CategoryServiceItem } from '@/data/pricing';
 import { type Designer } from '@/data/designers';
 import { motion, AnimatePresence } from "framer-motion";
@@ -29,6 +29,7 @@ const BookingPage = () => {
 
   const [categories, setCategories] = useState<CategoryServiceItem[]>([]);
   const [designerData, setDesignerData] = useState<Designer[]>([]);
+  const [designerServices, setDesignerServices] = useState<any[]>([]);
 
   const [formData, setFormData] = useState({
     category: null as number | null,
@@ -93,10 +94,35 @@ useEffect(() => {
   }, [navState.category, navState.service]);
 
   useEffect(() => {
-    setEvents(getDummyBookings());
-  }, []);
+    if (!formData.designer) return;
+    fetch(`${API_BASE_URL}/designers/${formData.designer}/services`)
+      .then(res => res.json())
+      .then(data => setDesignerServices(data))
+      .catch(() => setDesignerServices([]));
 
-  const categorySource = categories;
+    fetch(`${API_BASE_URL}/designers/${formData.designer}/slots`)
+      .then(res => res.json())
+      .then(data => {
+        setEvents(
+          data.map((s: any) => ({
+            title: '',
+            start: new Date(s.startTime),
+            end: new Date(s.endTime),
+          }))
+        );
+      })
+      .catch(() => setEvents([]));
+  }, [formData.designer]);
+
+
+  const categorySource = formData.designer
+    ? categories.map(cat => ({
+        ...cat,
+        Services: (cat.Services || []).filter(s =>
+          designerServices.some(ds => ds.id === s.id)
+        ),
+      })).filter(cat => cat.Services && cat.Services.length > 0)
+    : categories;
   const designerSource = designerData;
 
   const goToStep = (targetStep: number) => {
@@ -145,18 +171,25 @@ useEffect(() => {
 
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    setEvents(prev => [
-      ...prev,
-      {
-        title: `${formData.service} w/ ${formData.designer}`,
-        start: formData.start!,
-        end: formData.end!,
-      },
-    ]);
-    setShowReview(false);
-    alert(`Appointment booked on ${formData.start?.toLocaleString()}`);
-    setStep(0);
-    setFormData({ category: null, service: '', designer: '', start: null, end: null });
+    const serviceObj = categories
+      .flatMap(c => c.Services || [])
+      .find(s => (s.title || s.name) === formData.service);
+    if (!serviceObj) return;
+    fetch(`${API_BASE_URL}/bookings`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        serviceId: serviceObj.id,
+        designerId: formData.designer,
+        startTime: formData.start,
+        endTime: formData.end,
+      })
+    })
+      .then(() => {
+        setShowReview(false);
+        setStep(0);
+        setFormData({ category: null, service: '', designer: '', start: null, end: null });
+      });
   };
 
   const handleReviewClose = () => {
