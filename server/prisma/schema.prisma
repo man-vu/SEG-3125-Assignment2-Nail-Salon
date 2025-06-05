@@ -117,5 +117,5 @@ model AvailableAppointments {
   endTime    DateTime
   booked     Boolean   @default(false)
   Designers  Designers @relation(fields: [designerId], references: [id], onUpdate: NoAction, map: "FK_Available_Designer")
-  Bookings   Bookings? @relation(fields: [id], references: [slotId])
+  Bookings   Bookings?
 }
