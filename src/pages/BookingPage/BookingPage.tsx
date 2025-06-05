@@ -180,7 +180,7 @@ useEffect(() => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         serviceId: serviceObj.id,
-        designerId: parseInt(formData.designer),
+        designerId: formData.designer,
         startTime: formData.start,
         endTime: formData.end,
       })

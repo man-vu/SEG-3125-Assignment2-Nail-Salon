@@ -9,20 +9,18 @@ router.get('/', async (_req, res) => {
 });
 
 router.get('/:id/services', async (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  if (Number.isNaN(id)) {
-    return res.status(400).json({ error: 'Invalid designer ID' });
+  const services = await listDesignerServices(req.params.id);
+  if (!services) {
+    return res.status(404).json({ error: 'Designer not found' });
   }
-  const services = await listDesignerServices(id);
   res.json(services.map(s => s.Services));
 });
 
 router.get('/:id/slots', async (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  if (Number.isNaN(id)) {
-    return res.status(400).json({ error: 'Invalid designer ID' });
+  const slots = await listDesignerSlots(req.params.id);
+  if (!slots) {
+    return res.status(404).json({ error: 'Designer not found' });
   }
-  const slots = await listDesignerSlots(id);
   res.json(slots);
 });
 
