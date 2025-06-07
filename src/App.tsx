@@ -18,6 +18,7 @@ const ContactUsPage = lazy(() => import('./pages/ContactUsPage/ContactUsPage'));
 const GiftCardPage = lazy(() => import('./pages/GiftCardPage/GiftCardPage'));
 const LoginPage = lazy(() => import('./pages/Auth/LoginPage/LoginPage'));
 const RegisterPage = lazy(() => import('./pages/Auth/RegisterPage/RegisterPage'));
+const BookingConfirmationPage = lazy(() => import('./pages/BookingConfirmationPage/BookingConfirmationPage'));
 
 const pageTransition = {
   initial: { opacity: 0, y: 30 },
@@ -59,6 +60,14 @@ function AnimatedRoutes() {
           element={
             <motion.div {...pageTransition}>
               <BookingPage />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/booking-confirmation"
+          element={
+            <motion.div {...pageTransition}>
+              <BookingConfirmationPage />
             </motion.div>
           }
         />

@@ -8,6 +8,7 @@ import ContactUsPage from '@/pages/ContactUsPage/ContactUsPage'
 import GiftCardPage from '@/pages/GiftCardPage/GiftCardPage'
 import LoginPage from '@/pages/Auth/LoginPage/LoginPage'
 import RegisterPage from '@/pages/Auth/RegisterPage/RegisterPage'
+import BookingConfirmationPage from '@/pages/BookingConfirmationPage/BookingConfirmationPage'
 
 describe('Page renders', () => {
   it('BookingPage', () => {
@@ -75,5 +76,14 @@ describe('Page renders', () => {
       </AuthProvider>
     )
     expect(screen.getByRole('heading', { name: /register/i })).toBeInTheDocument()
+  })
+
+  it('BookingConfirmationPage', () => {
+    render(
+      <BrowserRouter>
+        <BookingConfirmationPage />
+      </BrowserRouter>
+    )
+    expect(screen.getByRole('heading', { name: /your booking is confirmed/i })).toBeInTheDocument()
   })
 })

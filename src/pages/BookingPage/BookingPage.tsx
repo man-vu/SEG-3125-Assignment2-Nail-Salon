@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './BookingPage.css';
 import ServiceCategorySelector from '@/components/ServiceCategorySelector/ServiceCategorySelector';
 import ServiceSelector from '@/components/ServiceSelector/ServiceSelector';
@@ -22,6 +22,7 @@ const steps = [
 
 const BookingPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const navState = location.state || {};
 
   const [formData, setFormData] = useState({
@@ -111,7 +112,7 @@ const BookingPage = () => {
       },
     ]);
     setShowReview(false);
-    alert(`Appointment booked on ${formData.start?.toLocaleString()}`);
+    navigate('/booking-confirmation', { state: formData });
     setStep(0);
     setFormData({ category: '', service: '', designer: '', start: null, end: null });
   };

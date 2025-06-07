@@ -1,0 +1,25 @@
+.booking-confirmation-page {
+  padding: 3rem 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.booking-confirmation-container {
+  max-width: 600px;
+  text-align: center;
+}
+
+.confirmation-details {
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+.prep-tips ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  text-align: left;
+}
+
+.back-home-btn {
+  margin-top: 2rem;
+}
